@@ -31,6 +31,16 @@ function unit_test_selectionsort_many()
     return all(res)
 end
 
+function unit_test_selectionsort_real()
+    n = 10^3
+    # random example list
+    a = rand((0:n), n)
+    as = sort(a)
+    res = selectionsort(a) .== as
+    
+    return all(res)
+end
+
 function unit_test_selectionsort_string()
     # known example list
     a = "A search has no name."
@@ -75,6 +85,16 @@ function unit_test_insertionsort_many()
     # known example list
     a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
     as = [1.0, 3.0, 5.0, 6.0, 10.0, 10.0]
+    res = insertionsort(a) .== as
+    
+    return all(res)
+end
+
+function unit_test_insertionsort_real()
+    n = 10^3
+    # random example list
+    a = rand((0:n), n)
+    as = sort(a)
     res = insertionsort(a) .== as
     
     return all(res)
@@ -129,6 +149,16 @@ function unit_test_mergesort_many()
     return all(res)
 end
 
+function unit_test_mergesort_real()
+    n = 10^4
+    # random example list
+    a = rand((0:n), n)
+    as = sort(a)
+    res = mergesort(a) .== as
+    
+    return all(res)
+end
+
 function unit_test_mergesort_string()
     # known example list
     a = "A search has no name."
@@ -155,6 +185,7 @@ end
     @test unit_test_selectionsort_empty()
     @test unit_test_selectionsort_one()
     @test unit_test_selectionsort_many()
+    @test unit_test_selectionsort_real()
     # @test unit_test_selectionsort_string()
     @test unit_test_selectionsort_speed()
 end
@@ -163,6 +194,7 @@ end
     @test unit_test_insertionsort_empty()
     @test unit_test_insertionsort_one()
     @test unit_test_insertionsort_many()
+    @test unit_test_insertionsort_real()
     # @test unit_test_insertionsort_string()
     @test unit_test_insertionsort_speed()
 end
@@ -171,6 +203,7 @@ end
     @test unit_test_mergesort_empty()
     @test unit_test_mergesort_one()
     @test unit_test_mergesort_many()
+    @test unit_test_mergesort_real()
     # @test unit_test_mergesort_string()
     @test unit_test_mergesort_speed()
 end

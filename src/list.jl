@@ -6,6 +6,13 @@ Linked list abstract supertype.
 abstract type LinkedList{T} end
 
 """
+    LNode
+
+Linked list node can be either a Node or nothing. Simplifies the implementation, without using undefined or circular references.
+"""
+LNode = Union{T, Nothing} where T
+
+"""
     SLLNode
 
 Singly linked list node. Holds pointer to next node and some value.

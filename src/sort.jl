@@ -51,7 +51,7 @@ end
 """
     mergesort(a, lo, hi)
 
-Recursive mergesort function.
+Recursive mergesort function. Something should be done about all the allocations.
 """
 function mergesort(a::AbstractVector{T}, lo::Int, hi::Int) where T
     if hi - lo <= 60
@@ -63,7 +63,7 @@ function mergesort(a::AbstractVector{T}, lo::Int, hi::Int) where T
 
         a_ = Array{T}(undef, length(a1) + length(a2))
         merge!(a_, a1, a2)
-        return array_
+        return a_
     end
 end
 
@@ -85,8 +85,8 @@ function merge!(a::AbstractVector{T}, a1::AbstractVector{T}, a2::AbstractVector{
 
         i += 1
     end
-
     a[i:end] = [a1[j:end]; a2[k:end]]
+    
     return nothing
 end
 

@@ -3,7 +3,7 @@ BNodeType = Union{T, Nothing} where T
 """
     BNode
 
-Binary node type.
+Binary node.
 """
 mutable struct BNode{T}
     key::BNodeType{T}

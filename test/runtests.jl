@@ -6,3 +6,5 @@ using Test
 #include("stack.jl")
 #include("dynamicarray.jl")
 include("list.jl")
+
+include("heap.jl")
