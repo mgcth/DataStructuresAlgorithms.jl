@@ -51,7 +51,7 @@ end
 """
     mergesort(a, lo, hi)
 
-
+Recursive mergesort function.
 """
 function mergesort(a::AbstractVector{T}, lo::Int, hi::Int) where T
     if hi - lo <= 60
@@ -90,29 +90,14 @@ function merge!(a::AbstractVector{T}, a1::AbstractVector{T}, a2::AbstractVector{
     return nothing
 end
 
-function test_mergesort(n)
-    a = rand((0:n), n)
-    println("Merge sort of $n random items:")
-    @time mergesort(a)
+"""
+    swap(a, i, j)
 
-    a = rand((0:n), n)
-    println("Built in sort of $n random items:")
-    @time sort(a)
-end
-
-function swap!(a, i, k)
-    tmp = a[k]
-    a[k] = a[i]
+Swap to element i and j in array a.
+"""
+function swap!(a::AbstractVector, i::Int, j::Int)
+    tmp = a[j]
+    a[j] = a[i]
     a[i] = tmp
     return nothing
-end
-
-function test_insertionsort(n)
-    a = rand((0:n), n)
-    println("Merge sort of $n random items:")
-    @time insertionsort(a)
-
-    a = rand((0:n), n)
-    println("Built in sort of $n random items:")
-    @time sort(a)
 end
