@@ -13,7 +13,7 @@ end
 """
     push!(a, x)
 
-Add new element x to end of existing array a.
+Add new element x to end of existing array a. Amortised time complexity O(1).
 """
 function push!(a::DynamicArray{T}, x::T) where T
     if a.size >= a.capacity
@@ -30,7 +30,7 @@ end
 """
     pop!(a)
 
-Remove last element from array a.
+Remove last element from array a. Amortised time complexity O(1).
 """
 function pop!(a::DynamicArray)
     x = a[a.size]

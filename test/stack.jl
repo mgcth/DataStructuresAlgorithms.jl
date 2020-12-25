@@ -50,30 +50,13 @@ function unit_test_stack_peek()
 end
 
 function unit_test_stack_size()
+    res = []
+
     s = Stack(Vector{Float64}(undef, 0))
     val = 1.0
     push!(s, val)
-    res = size(s) == 1
-
-    return res
-end
-
-function unit_test_stack_benchmark()
-    n = 10^6
-    res = []
-
-    println("Add $n elements to the stack: ")
-    s = Stack(Vector{Float64}(undef, 0))
-    @time for i in 1:n
-        push!(s, Float64(i))
-    end
-    push!(res, size(s) == n)
-
-    println("Remove $n elements from the stack: ")
-    @time for i in 1:n
-        pop!(s)
-    end
-    push!(res, isempty(s))
+    push!(res, size(s) == 1)
+    push!(res, length(s) == 1)
 
     return all(res)
 end
@@ -86,5 +69,4 @@ end
     @test unit_test_stack_pop()
     @test unit_test_stack_peek()
     @test unit_test_stack_size()
-    @test unit_test_stack_benchmark()
 end

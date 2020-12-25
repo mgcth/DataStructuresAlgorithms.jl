@@ -10,7 +10,7 @@ end
 """
     push!(s, x)
 
-Add element at top of the stack.
+Add element to top of the stack. Time complexity O(1).
 """
 function push!(s::Stack{Vector{T}}, x::T) where T
     push!(s.data, x)
@@ -20,7 +20,7 @@ end
 """
     pop!(s)
 
-Remove element from top of the stack.
+Remove element from top of the stack. Time complexity O(1).
 """
 pop!(s::Stack{Vector{T}}) where T = pop!(s.data)
 
@@ -32,11 +32,13 @@ Lookup top stack element, don't remove.
 peek(s::Stack{Vector{T}}) where T = s.data[end];
 
 """
+    length(s)
     size(s)
 
 Get size of stack.
 """
-size(s::Stack{Vector{T}}) where T = length(s.data)
+length(s::Stack{Vector{T}}) where T = length(s.data)
+size(s::Stack{Vector{T}}) where T = length(s)
 
 """
     isempty(s)
