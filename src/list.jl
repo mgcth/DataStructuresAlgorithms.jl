@@ -6,18 +6,18 @@ Linked list abstract supertype.
 abstract type LinkedList{T} end
 
 """
-    LNode
+    LLNode
 
-Linked list node can be either a Node or nothing. Simplifies the implementation, without using undefined or circular references.
+Linked list node supertype.
 """
-LNode = Union{T, Nothing} where T
+abstract type LLNode{T} end
 
 """
     SLLNode
 
 Singly linked list node. Holds pointer to next node and some value.
 """
-mutable struct SLLNode{T}
+mutable struct SLLNode{T} <: LLNode{T}
     next::SLLNode{T}
     value::T
     SLLNode{T}() where T = (x = new(); x.next = x; x)
@@ -30,7 +30,7 @@ end
 
 Double linked list node. Holds pointers to previous and next nodes and some value.
 """
-mutable struct DLLNode{T}
+mutable struct DLLNode{T} <: LLNode{T}
     prev::DLLNode{T}
     next::DLLNode{T}
     value::T
@@ -71,10 +71,9 @@ end
 Add node to last position in linked list. Time complexity O(1).
 """
 function addlast!(l::SLinkedList{T}, x::T) where T
-    # l.tail.next.value = x
-    # l.tail = l.tail.next
-    # l.tail.next = SLLNode{T}()
-    l.tail = SLLNode{T}(l.tail.next, x)
+    l.tail.next.value = x
+    l.tail = l.tail.next
+    l.tail.next = SLLNode{T}()
 
     l.size += 1
     return nothing
@@ -188,72 +187,76 @@ end
 Remove last node from linked list. Time complexity for singly linked list O(n) and for doubly linked list O(1).
 """
 function removelast!(l::SLinkedList{T}) where T
+    x = l.tail.value
     n = l.head
-    p = l.head
-    while n != n.next
-        p = n
+    i = 1
+
+    while i < l.size-1
         n = n.next
+        i += 1
     end
-    l.tail = p
+    empty = l.tail.next
+
+    if l.size == 1
+        # all this necessary?
+        l.head = empty
+        l.head.next = l.head
+        l.tail = empty
+        l.tail.next = l.tail
+    else
+        l.tail = n
+        l.tail.next = empty
+    end
     l.size -= 1
 
-    return nothing
+    return x
 end
 
 function removelast!(l::DLinkedList{T}) where T
-    n = l.node
-    p = l.node
-    while n != n.next
-        p = n
-        n = n.next
+    x = l.tail.value
+    empty = l.tail.next
+
+    if l.size == 1
+        # all this necessary?
+        l.head = empty
+        l.head.prev = l.head
+        l.head.next = l.head
+        l.tail = empty
+        l.tail.prev = l.tail
+        l.tail.next = l.tail
+    else
+        l.tail = l.tail.prev
+        l.tail.next = empty
     end
+    l.size -= 1
 
-    @show p
-    @show n
-
-    p = SLLNode{T}()
-    return nothing
+    return x
 end
 
 """
     removefirst!(l)
 
-Remove last node from linked list. Time complexity O(n).
+Remove last node from linked list. Time complexity O(1).
 """
 function removefirst!(l::SLinkedList{T}) where T
-    n = l.node
-    p = l.node
-    while n != n.next
-        p = n
-        n = n.next
-    end
+    x = l.head.value
+    l.head = l.head.next
 
-    @show p
-    @show n
-
-    p = SLLNode{T}()
-    return nothing
+    return x
 end
 
 function removefirst!(l::DLinkedList{T}) where T
-    n = l.node
-    p = l.node
-    while n != n.next
-        p = n
-        n = n.next
-    end
+    x = l.head.value
+    l.head = l.head.next
+    l.head.prev = l.head
 
-    @show p
-    @show n
-
-    p = SLLNode{T}()
-    return nothing
+    return x
 end
 
 """
     removefirst!(l)
 
-Remove last node from linked list. Time complexity O(n).
+Remove last node from linked list. Time complexity O(1).
 """
 function remove!(l::SLinkedList{T}, pos::Int) where T
     n = l.node
@@ -293,21 +296,42 @@ Get size of linked list. Time complexity O(1).
 size(l::LinkedList) = l.size
 
 """
+    :(==)
+
+Test list equality.
+"""
+(==)(x::LinkedList, y::LinkedList) = (x.head == y.head) && (x.tail == y.tail) && (x.size == y.size)
+
+"""
     show(l)
 
-Display singly linked list types.
+Display linked list types.
 """
-function show(io::IO, l::LinkedList{T}) where T
-    if !isdefined(l, :head) || !isdefined(l, :tail) return nothing end
-
+function show(io::IO, l::SLinkedList{T}) where T
     println(io, "$(typeof(l))")
     middle = false
     n = l.head
-    print(io, " ")
+    print(io, " Head: ")
     while n != n.next
         print(io, " $(n.value)  -> ")
         n = n.next
     end
-    print(io, " $(n.value)")
+    println(io, " $(n.value)")
+
+    print(io, " Tail:  $(l.tail.value)")
+end
+
+function show(io::IO, l::DLinkedList{T}) where T
+    println(io, "$(typeof(l))")
+    middle = false
+    n = l.head
+    print(io, " Head: ")
+    while n != n.next
+        print(io, " $(n.value)  <-> ")
+        n = n.next
+    end
+    println(io, " $(n.value)")
+
+    print(io, " Tail:  $(l.tail.value)")
 end
 #iterate(l::SLinkedList{T}, n=l.head.next) where T = n==l.head ? nothing : (n.value, n.next)

@@ -11,7 +11,7 @@ function unit_test_linearsearch_empty()
     push!(res, linearsearch(a, NaN) == 0)
     push!(res, linearsearch(a, Inf) == 0)
     
-    return all(res)
+    return res
 end
 
 function unit_test_linearsearch_one()
@@ -27,7 +27,7 @@ function unit_test_linearsearch_one()
     push!(res, linearsearch(a, 0) == 0)
     push!(res, linearsearch(a, 10) == 1)
     
-    return all(res)
+    return res
 end
 
 function unit_test_linearsearch_many()
@@ -43,7 +43,7 @@ function unit_test_linearsearch_many()
     push!(res, linearsearch(a, NaN) == 0)
     push!(res, linearsearch(a, Inf) == 0)
     
-    return all(res)
+    return res
 end
 
 function unit_test_linearsearch_string()
@@ -58,7 +58,7 @@ function unit_test_linearsearch_string()
     return all(res)
 end
 
-function unit_test_linearsearch_speed()
+function unit_test_linearsearch_benchmark()
     n = 10^7 - 1
     a = rand((0:n), n)
     push!(a, n+1)
@@ -66,7 +66,7 @@ function unit_test_linearsearch_speed()
     println("Test performance in linear search for n = $(n+1): ")
     el = findfirst(x->x == a[end], a)
     @time res = linearsearch(a, a[end]) == el
-
+    
     return all(res)
 end
 
@@ -134,7 +134,7 @@ function unit_test_binarysearch_string()
     return all(res)
 end
 
-function unit_test_binarysearch_speed()
+function unit_test_binarysearch_benchmark()
     n = 10^7-1
     a = sort(rand((0:n), n))
     push!(a, n+1)
@@ -151,7 +151,7 @@ end
     @test unit_test_linearsearch_one()
     @test unit_test_linearsearch_many()
     @test unit_test_linearsearch_string()
-    @test unit_test_linearsearch_speed()
+    @test unit_test_linearsearch_benchmark()
 end
 
 @testset "Binary search" begin
@@ -159,5 +159,5 @@ end
     @test unit_test_binarysearch_one()
     @test unit_test_binarysearch_many()
     @test unit_test_binarysearch_string()
-    @test unit_test_binarysearch_speed()
+    @test unit_test_binarysearch_benchmark()
 end

@@ -50,7 +50,7 @@ function unit_test_selectionsort_string()
     return all(res)
 end
 
-function unit_test_selectionsort_speed()
+function unit_test_selectionsort_benchmark()
     n = 10^4
     a = rand((0:n), n)
     as = sort(a)
@@ -109,7 +109,7 @@ function unit_test_insertionsort_string()
     return all(res)
 end
 
-function unit_test_insertionsort_speed()
+function unit_test_insertionsort_benchmark()
     n = 10^4
     a = rand((0:n), n)
     as = sort(a)
@@ -168,7 +168,7 @@ function unit_test_mergesort_string()
     return all(res)
 end
 
-function unit_test_mergesort_speed()
+function unit_test_mergesort_benchmark()
     n = 10^5
     a = rand((0:n), n)
     as = sort(a)
@@ -187,7 +187,7 @@ end
     @test unit_test_selectionsort_many()
     @test unit_test_selectionsort_real()
     # @test unit_test_selectionsort_string()
-    @test unit_test_selectionsort_speed()
+    @test unit_test_selectionsort_benchmark()
 end
 
 @testset "Insertion sort" begin
@@ -196,7 +196,7 @@ end
     @test unit_test_insertionsort_many()
     @test unit_test_insertionsort_real()
     # @test unit_test_insertionsort_string()
-    @test unit_test_insertionsort_speed()
+    @test unit_test_insertionsort_benchmark()
 end
 
 @testset "Merge sort" begin
@@ -205,5 +205,5 @@ end
     @test unit_test_mergesort_many()
     @test unit_test_mergesort_real()
     # @test unit_test_mergesort_string()
-    @test unit_test_mergesort_speed()
+    @test unit_test_mergesort_benchmark()
 end

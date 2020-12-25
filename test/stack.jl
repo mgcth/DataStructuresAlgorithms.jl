@@ -58,7 +58,7 @@ function unit_test_stack_size()
     return res
 end
 
-function unit_test_stack_speed()
+function unit_test_stack_benchmark()
     n = 10^6
     res = []
 
@@ -86,5 +86,5 @@ end
     @test unit_test_stack_pop()
     @test unit_test_stack_peek()
     @test unit_test_stack_size()
-    @test unit_test_stack_speed()
+    @test unit_test_stack_benchmark()
 end

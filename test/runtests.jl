@@ -7,4 +7,4 @@ using Test
 #include("dynamicarray.jl")
 include("list.jl")
 
-include("heap.jl")
+#include("heap.jl")

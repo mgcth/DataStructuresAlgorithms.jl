@@ -10,7 +10,7 @@ import DAT038.SLinkedList,
 # Unit test functions
 function unit_test_slinkedlist_empty()
     l = SLinkedList{Float64}()
-    res = true
+    res = l == l
 
     return res
 end
@@ -98,6 +98,24 @@ function unit_test_slinkedlist_add()
     return all(res)
 end
 
+function unit_test_slinkedlist_removelast()
+    res = []
+
+    l = SLinkedList{Float64}()
+    val1 = 1.0
+    val2 = 2.0
+    addlast!(l, val1)
+    addlast!(l, val2)
+    push!(res, l.head.value == val1)
+    push!(res, l.head.next.value == val2)
+    push!(res, removelast!(l) == val2)
+    push!(res, l.head.value == val1)
+    push!(res, removelast!(l) == val1)
+    push!(res, l.head == l.tail)
+
+    return all(res)
+end
+
 function unit_test_slinkedlist_addlastfirst()
     l = SLinkedList{Float64}()
     res = true
@@ -105,7 +123,7 @@ function unit_test_slinkedlist_addlastfirst()
     return res
 end
 
-function unit_test_slinkedlist_addlast_speed()
+function unit_test_slinkedlist_benchmark()
     n = 10^4
     l = SLinkedList{Int64}()
     
@@ -116,17 +134,17 @@ function unit_test_slinkedlist_addlast_speed()
     @time addlast!(l, 1)
 
     println("SLL time to removelast for $n nodes: ")
+    @time removelast!(l)
     @time for i in 1:n
         removelast!(l)
     end
-    @time removelast!(l)
 
     return true
 end
 
 function unit_test_dlinkedlist_empty()
     l = DLinkedList{Float64}()
-    res = true
+    res = l == l
 
     return res
 end
@@ -231,7 +249,26 @@ function unit_test_dlinkedlist_addlastfirst()
     return res
 end
 
-function unit_test_dlinkedlist_addlast_speed()
+function unit_test_dlinkedlist_removelast()
+    res = []
+
+    l = DLinkedList{Float64}()
+    val1 = 1.0
+    val2 = 2.0
+    addlast!(l, val1)
+    addlast!(l, val2)
+    push!(res, l.head.value == val1)
+    push!(res, l.head.next.value == val2)
+    push!(res, removelast!(l) == val2)
+    push!(res, l.head.value == val1)
+    push!(res, removelast!(l) == val1)
+    push!(res, l.head == l.tail)
+    # missing test on prev
+
+    return all(res)
+end
+
+function unit_test_dlinkedlist_benchmark()
     n = 10^4
     l = DLinkedList{Int64}()
     
@@ -241,11 +278,11 @@ function unit_test_dlinkedlist_addlast_speed()
     end
     @time addlast!(l, 1)
 
-    #println("SLL time to removelast for $n nodes: ")
-    #@time for i in 1:n
-    #    removelast!(l)
-    #end
-    #@time removelast!(l)
+    println("SLL time to removelast for $n nodes: ")
+    @time removelast!(l)
+    @time for i in 1:n
+        removelast!(l)
+    end
 
     return true
 end
@@ -257,10 +294,11 @@ end
     @test unit_test_slinkedlist_addfirst()
     @test unit_test_slinkedlist_add()
     @test unit_test_slinkedlist_addlastfirst()
-    # @test unit_test_slinkedlist_addlast_speed()
+    @test unit_test_slinkedlist_removelast()
+    @test unit_test_slinkedlist_benchmark()
     #@test unit_test_selectionsort_many()
     # @test unit_test_selectionsort_string()
-    #@test unit_test_selectionsort_speed()
+    #@test unit_test_selectionsort_benchmark()
 end
 
 @testset "Doubly linked list" begin
@@ -268,6 +306,7 @@ end
     @test unit_test_dlinkedlist_addlast()
     @test unit_test_dlinkedlist_addfirst()
     @test unit_test_dlinkedlist_add()
-    #@test unit_test_dlinkedlist_addlastfirst()
-    # @test unit_test_dlinkedlist_addlast_speed()
+    @test unit_test_dlinkedlist_addlastfirst()
+    @test unit_test_dlinkedlist_removelast()
+    @test unit_test_dlinkedlist_benchmark()
 end

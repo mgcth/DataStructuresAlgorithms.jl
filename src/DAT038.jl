@@ -7,7 +7,7 @@ export selectionsort, insertionsort, mergesort
 export SLinkedList, DLinkedList
 
 import Base.push!, Base.pop!, Base.isempty, Base.peek, Base.show
-import Base.getindex, Base.resize!, Base.setindex!
+import Base.getindex, Base.resize!, Base.setindex!, Base.:(==)
 
 include("stack.jl")
 include("list.jl")
