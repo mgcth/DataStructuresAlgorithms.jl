@@ -8,9 +8,9 @@ using DAT038
 #include("stack.jl")
 #include("dynamicarray.jl")
 #include("list.jl")
-include("queue.jl")
+#include("queue.jl")
 
 
 #include("heap.jl")
-#include("tree.jl")
+include("tree.jl")
 #include("graph.jl")

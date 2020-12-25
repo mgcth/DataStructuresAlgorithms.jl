@@ -1,9 +1,9 @@
 """
-    NKeyType
+    BNKeyType
 
 Keys can hold value of type T or nothing.
 """
-NKeyType = Union{T, Nothing} where T
+BNKeyType = Union{T, Nothing} where T
 
 """
     BNode
@@ -11,12 +11,12 @@ NKeyType = Union{T, Nothing} where T
 Binary node.
 """
 mutable struct BNode{T}
-    key::NKeyType{T}
+    key::BNKeyType{T}
     left::BNode{T}
     right::BNode{T}
     BNode{T}() where T = (x = new(); x)
-    BNode{T}(key) where T = (x = new(); x.key = key; x)
-    BNode{T}(key, left, right) where T = new(key, left, right)
+    BNode{T}(k::BNKeyType{T}) where T = (x = new(); x.key = k; x)
+    BNode{T}(k::BNKeyType{T}, l::BNode{T}, r::BNode{T}) where T = new(k, l, r)
 end
 
 """
