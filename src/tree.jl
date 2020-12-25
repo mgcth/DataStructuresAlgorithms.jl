@@ -61,11 +61,17 @@ function put!(node::BSTNode{S,T}, key::S, value::T) where {S,T}
     if node.key == nothing
         return BSTNode{S,T}(key, value)
     elseif key < node.key
-        if !isdefined(node, :left) node.left = BSTNode{S,T}() end
-        node.left = put!(node.left, key, value)
+        if !isdefined(node, :left)
+            node.left = BSTNode{S,T}(key, value)
+        else
+            node.left = put!(node.left, key, value)
+        end
     elseif key > node.key
-        if !isdefined(node, :right) node.right = BSTNode{S,T}() end
-        node.right = put!(node.right, key, value)
+        if !isdefined(node, :right)
+            node.right = BSTNode{S,T}(key, value)
+        else
+            node.right = put!(node.right, key, value)
+        end
     else
         node.value = value
     end
