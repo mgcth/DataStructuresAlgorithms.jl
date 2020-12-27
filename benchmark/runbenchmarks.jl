@@ -1,6 +1,6 @@
 using DAT038
 
-function benchmark_slinkedlist_benchmark()
+function benchmark_slinkedlist()
     n = 10^4
     l = SLinkedList{Int64}()
     
@@ -19,7 +19,7 @@ function benchmark_slinkedlist_benchmark()
     return true
 end
 
-function benchmark_dlinkedlist_benchmark()
+function benchmark_dlinkedlist()
     n = 10^4
     l = DLinkedList{Int64}()
     
@@ -38,7 +38,7 @@ function benchmark_dlinkedlist_benchmark()
     return true
 end
 
-function benchmark_stack_benchmark()
+function benchmark_stack()
     n = 10^6
     res = []
 
@@ -58,7 +58,7 @@ function benchmark_stack_benchmark()
     return all(res)
 end
 
-function benchmark_queue_benchmark()
+function benchmark_queue()
     n = 10^6
     res = []
 
@@ -102,10 +102,92 @@ function benchmark_bst()
     return true
 end
 
+function benchmark_linearsearch()
+    n = 10^7 - 1
+    a = rand((0:n), n)
+    push!(a, n+1)
+
+    println("Test performance in linear search for n = $(n+1): ")
+    el = findfirst(x->x == a[end], a)
+    @time res = linearsearch(a, a[end]) == el
+    
+    return all(res)
+end
+
+function benchmark_binarysearch()
+    n = 10^7-1
+    a = sort(rand((0:n), n))
+    push!(a, n+1)
+
+    println("Test performance in binary search for n = $(n+1): ")
+    @time res = binarysearch(a, a[end]) == a[end]
+
+    return all(res)
+end
+
+function benchmark_selectionsort()
+    n = 10^4
+    a = rand((0:n), n)
+    as = sort(a)
+
+    println("Test performance in selection sort for n = $n: ")
+    @time res = selectionsort(a) 
+    res = res .== as
+
+    return all(res)
+end
+
+function benchmark_insertionsort()
+    n = 10^4
+    a = rand((0:n), n)
+    as = sort(a)
+
+    println("Test performance in insertion sort for n = $n: ")
+    @time res = insertionsort(a) 
+    res = res .== as
+
+    return all(res)
+end
+
+function benchmark_mergesort()
+    n = 10^5
+    a = rand((0:n), n)
+    as = sort(a)
+
+    println("Test performance in merge sort for n = $n: ")
+    @time res = mergesort(a) 
+    res = res .== as
+
+    return all(res)
+end
+
+function benchmark_dynamicarray()
+    d = DynamicArray{Float64}()
+    n = 10^7
+
+    println("Test adding to dynamic array for n = $n: ")
+    @time for i in 1:n
+        push!(d, Float64(i))
+    end
+
+    println("Test removing from dynamic array for n = $n: ")
+    @time for i in 1:n
+        pop!(d)
+    end
+
+    return true
+end
+
 function runbenchmark()
-    benchmark_slinkedlist_benchmark()
-    benchmark_dlinkedlist_benchmark()
-    benchmark_queue_benchmark()
-    benchmark_stack_benchmark()
+    benchmark_slinkedlist()
+    benchmark_dlinkedlist()
+    benchmark_queue()
+    benchmark_stack()
     function_benchmark_bst()
+    benchmark_linearsearch()
+    benchmark_binarysearch()
+    benchmark_selectionsort()
+    benchmark_insertionsort()
+    benchmark_mergesort()
+    benchmark_dynamicarray()
 end

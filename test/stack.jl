@@ -1,72 +1,62 @@
-import DAT038.Stack,
-       DAT038.push!,
-       DAT038.pop!,
-       DAT038.peek,
-       DAT038.size,
-       DAT038.isempty
-
 # Unit test functions
 function unit_test_stack()
     s = Stack(Vector{Float64}(undef, 0))
-    res = true
+    @test true
 
-    return res
+    return nothing
 end
 
 function unit_test_stack_isempty()
     s = Stack(Vector{Float64}(undef, 0))
-    res = isempty(s)
+    @test isempty(s)
 
-    return res
+    return nothing
 end
 
 function unit_test_stack_push()
     s = Stack(Vector{Float64}(undef, 0))
     val = 1.0
     push!(s, val)
-    res = s.data[1] == val
+    @test s.data[1] == val
 
-    return res
+    return nothing
 end
 
 function unit_test_stack_pop()
-    res = []
     s = Stack(Vector{Float64}(undef, 0))
     val = 1.0
     push!(s, val)
-    push!(res, pop!(s) == val)
-    push!(res, isempty(s))
+    @test pop!(s) == val
+    @test isempty(s)
 
-    return all(res)
+    return nothing
 end
 
 function unit_test_stack_peek()
     s = Stack(Vector{Float64}(undef, 0))
     val = 1.0
     push!(s, val)
-    res = peek(s) == val
+    @test peek(s) == val
 
-    return res
+    return nothing
 end
 
 function unit_test_stack_size()
-    res = []
-
     s = Stack(Vector{Float64}(undef, 0))
     val = 1.0
     push!(s, val)
-    push!(res, size(s) == 1)
-    push!(res, length(s) == 1)
+    @test size(s) == 1
+    @test length(s) == 1
 
-    return all(res)
+    return nothing
 end
 
 # Run the unit tests
 @testset "Stack" begin
-    @test unit_test_stack()
-    @test unit_test_stack_isempty()
-    @test unit_test_stack_push()
-    @test unit_test_stack_pop()
-    @test unit_test_stack_peek()
-    @test unit_test_stack_size()
+    unit_test_stack()
+    unit_test_stack_isempty()
+    unit_test_stack_push()
+    unit_test_stack_pop()
+    unit_test_stack_peek()
+    unit_test_stack_size()
 end

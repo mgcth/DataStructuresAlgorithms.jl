@@ -10,50 +10,50 @@ import DAT038.DynamicArray,
 # Unit test functions
 function unit_test_dynamicarray_empty()
     d = DynamicArray{Float64}()
-    res = d.capacity == 0
+    @test d.capacity == 0
 
-    return res
+    return nothing
 end
 
 function unit_test_dynamicarray_size()
     d = DynamicArray{Float64}()
-    res = size(d) == 0
+    @test size(d) == 0
     
-    return res
+    return nothing
 end
 
 function unit_test_dynamicarray_isempty()
     d = DynamicArray{Float64}()
-    res = isempty(d)
+    @test isempty(d)
     
-    return res
+    return nothing
 end
 
 function unit_test_dynamicarray_push()
     d = DynamicArray{Float64}()
     val = 1.0
     push!(d, val)
-    res = d[1] == val
+    @test d[1] == val
     
-    return res
+    return nothing
 end
 
 function unit_test_dynamicarray_pop()
     d = DynamicArray{Float64}()
     val = 1.0
     push!(d, val)
-    res = pop!(d) == val
+    @test pop!(d) == val
     
-    return res
+    return nothing
 end
 
 function unit_test_dynamicarray_getindex()
     d = DynamicArray{Float64}()
     val = 2.0
     push!(d, val)
-    res = d[1] == val
+    @test d[1] == val
     
-    return res
+    return nothing
 end
 
 function unit_test_dynamicarray_setindex()
@@ -62,46 +62,28 @@ function unit_test_dynamicarray_setindex()
     val2 = 3.0
     push!(d, val1)
     d[1] = val2
-    res = d[1] == val2
+    @test d[1] == val2
     
-    return res
+    return nothing
 end
 
 function unit_test_dynamicarray_resize()
     d = DynamicArray{Float64}()
     capacity = 8
     resize!(d, capacity)
-    res = d.capacity == capacity
+    @test d.capacity == capacity
     
-    return res
-end
-
-function unit_test_dynamicarray_speed()
-    d = DynamicArray{Float64}()
-    n = 10^7
-
-    println("Test adding to dynamic array for n = $n: ")
-    @time for i in 1:n
-        push!(d, Float64(i))
-    end
-
-    println("Test removing from dynamic array for n = $n: ")
-    @time for i in 1:n
-        pop!(d)
-    end
-
-    return true
+    return nothing
 end
     
 # Run the unit tests
 @testset "Dynamic array" begin
-    @test unit_test_dynamicarray_empty()
-    @test unit_test_dynamicarray_size()
-    @test unit_test_dynamicarray_isempty()
-    @test unit_test_dynamicarray_push()
-    @test unit_test_dynamicarray_pop()
-    @test unit_test_dynamicarray_getindex()
-    @test unit_test_dynamicarray_setindex()
-    @test unit_test_dynamicarray_resize()
-    @test unit_test_dynamicarray_speed()
+    unit_test_dynamicarray_empty()
+    unit_test_dynamicarray_size()
+    unit_test_dynamicarray_isempty()
+    unit_test_dynamicarray_push()
+    unit_test_dynamicarray_pop()
+    unit_test_dynamicarray_getindex()
+    unit_test_dynamicarray_setindex()
+    unit_test_dynamicarray_resize()
 end

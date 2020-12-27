@@ -1,49 +1,47 @@
 # Unit test functions
 function unit_test_queue()
     q = Queue(DLinkedList{Float64}())
-    res = true
+    @test true
 
-    return res
+    return nothing
 end
 
 function unit_test_queue_isempty()
     q = Queue(DLinkedList{Float64}())
     res = isempty(q)
 
-    return res
+    return nothing
 end
 
 function unit_test_queue_enqueue()
-    res = []
     q = Queue(DLinkedList{Float64}())
     
     val1 = 1.0
     val2 = 2.0
     enqueue!(q, val1)
     enqueue!(q, val2)
-    push!(res, q.data.head.value == val1)
-    push!(res, q.data.head.next.value == val2)
-    push!(res, length(q) == 2)
+    @test q.data.head.value == val1
+    @test q.data.head.next.value == val2
+    @test length(q) == 2
 
-    return all(res)
+    return nothing
 end
 
 function unit_test_queue_dequeue()
-    res = []
     q = Queue(DLinkedList{Float64}())
     
     val1 = 1.0
     val2 = 2.0
     enqueue!(q, val1)
     enqueue!(q, val2)
-    push!(res, length(q) == 2)
-    push!(res, q.data.head.value == val1)
-    push!(res, q.data.head.next.value == val2)
-    push!(res, dequeue!(q) == val1)
-    push!(res, dequeue!(q) == val2)
-    push!(res, length(q) == 0)
+    @test length(q) == 2
+    @test q.data.head.value == val1
+    @test q.data.head.next.value == val2
+    @test dequeue!(q) == val1
+    @test dequeue!(q) == val2
+    @test length(q) == 0
 
-    return all(res)
+    return nothing
 end
 
 function unit_test_queue_enqueuedequeue()
@@ -56,18 +54,18 @@ function unit_test_queue_enqueuedequeue()
     val4 = 4.0
     enqueue!(q, val1)
     enqueue!(q, val2)
-    push!(res, length(q) == 2)
-    push!(res, q.data.head.value == val1)
-    push!(res, q.data.head.next.value == val2)
-    push!(res, dequeue!(q) == val1)
+    @test length(q) == 2
+    @test q.data.head.value == val1
+    @test q.data.head.next.value == val2
+    @test dequeue!(q) == val1
     enqueue!(q, val3)
-    push!(res, dequeue!(q) == val2)
+    @test dequeue!(q) == val2
     enqueue!(q, val4)
-    push!(res, dequeue!(q) == val3)
-    push!(res, dequeue!(q) == val4)
-    push!(res, length(q) == 0)
+    @test dequeue!(q) == val3
+    @test dequeue!(q) == val4
+    @test length(q) == 0
 
-    return all(res)
+    return nothing
 end
 
 function unit_test_queue_peek()
@@ -78,11 +76,11 @@ function unit_test_queue_peek()
     val2 = 2.0
     enqueue!(q, val1)
     enqueue!(q, val2)
-    push!(res, peek(q) == val1)
-    push!(res, peek(q) == val1)
-    push!(res, length(q) == 2)
+    @test peek(q) == val1
+    @test peek(q) == val1
+    @test length(q) == 2
 
-    return all(res)
+    return nothing
 end
 
 function unit_test_queue_length()
@@ -91,19 +89,19 @@ function unit_test_queue_length()
     q = Queue(DLinkedList{Float64}())
     val = 1.0
     enqueue!(q, val)
-    push!(res, size(q) == 1)
-    push!(res, length(q) == 1)
+    @test size(q) == 1
+    @test length(q) == 1
 
-    return all(res)
+    return nothing
 end
 
 # Run the unit tests
 @testset "Queue" begin
-    @test unit_test_queue()
-    @test unit_test_queue_isempty()
-    @test unit_test_queue_enqueue()
-    @test unit_test_queue_dequeue()
-    @test unit_test_queue_enqueuedequeue()
-    @test unit_test_queue_peek()
-    @test unit_test_queue_length()
+    unit_test_queue()
+    unit_test_queue_isempty()
+    unit_test_queue_enqueue()
+    unit_test_queue_dequeue()
+    unit_test_queue_enqueuedequeue()
+    unit_test_queue_peek()
+    unit_test_queue_length()
 end

@@ -2,6 +2,7 @@ module DAT038
 
 using Random
 
+export Stack
 export linearsearch, binarysearch
 export selectionsort, insertionsort, mergesort
 export SLinkedList, DLinkedList, addlast!, addfirst!, add!, removelast!, removefirst!, remove!, peeklast, peekfirst
