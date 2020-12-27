@@ -82,7 +82,7 @@ end
 
 Remove node from tree. Time complexity O(logn), worst O(n).
 
-Implements two versions. First is based on lecutre slides (my implementation) with one traversal to find maximum node. The other is the Hibbard deletion which makes two traversals to find and delete maximum node. The Hibbard is much slower.
+Implements two versions. First is based on lecutre slides (my implementation) with one traversal to find maximum node. The other is the Hibbard deletion which makes two traversals to find and delete maximum node. The Hibbard deletion is much slower. Why?
 """
 function delete!(bst::BST{S,T}, key::S) where {S,T}
     delete!(bst.root, bst.root, key)
@@ -91,13 +91,10 @@ function delete!(bst::BST{S,T}, key::S) where {S,T}
     return nothing
 end
 
-# imlemented as outlined as non-code in slides following several rules/cases,
-# not the best implementation and not sure about size
-# Hibbard deletion should be better
 function delete!(node::Union{BSTNode{S,T}, Nothing}, parent::Union{BSTNode{S,T}, Nothing}, key::S) where {S,T}
     if node === nothing return nothing end
 
-    # check this first, if last very extremely slow due to many recursion calls
+    # check this first, if last extremely slow due to many recursion calls
     if node.key < key
         delete!(node.right, node, key)
     elseif node.key > key
@@ -111,14 +108,8 @@ function delete!(node::Union{BSTNode{S,T}, Nothing}, parent::Union{BSTNode{S,T},
             setparent!(parent, node, node.left)
         else
             n, p = maximum_node(node.left, node)
-            
-            #if n.left === nothing
-            #    node.key = n.key
-            #    node.value = n.value
-            #else
-                node.key = n.key
-                node.value = n.value
-            #end
+            node.key = n.key
+            node.value = n.value
             setparent!(p, n)
         end
     end
@@ -130,7 +121,12 @@ function delete!(node::Union{BSTNode{S,T}, Nothing}, parent::Union{BSTNode{S,T},
     return nothing
 end
 
-function setparent!(p, n, v = nothing)
+"""
+    setparent!(p, n, v = nothing)
+
+Helper function for delete.
+"""
+function setparent!(p::BSTNode, n::BSTNode, v::Union{BSTNode, Nothing} = nothing)
     if p.left == n
         p.left = v
     elseif p.right == n
@@ -141,11 +137,22 @@ function setparent!(p, n, v = nothing)
     return nothing
 end
 
+"""
+    maximum_node(node, parent)
+
+Find maximum node and its parent.
+"""
+function maximum_node(node::BSTNode, parent::BSTNode)
+    if node.right !== nothing
+        node.size -= 1
+        node, parent = maximum_node(node.right, node)
+    end
+
+    return node, parent
+end
+
 # Hibbard deletion, from sedgewick and wayne algorithms
-function delete!(
-    node::Union{BSTNode{S,T}, Nothing},
-    key::S
-) where {S,T}
+function delete!(node::Union{BSTNode{S,T}, Nothing}, key::S) where {S,T}
     if node === nothing return nothing end
     
     if key < node.key
@@ -180,20 +187,6 @@ function deletemax!(node::BSTNode)
                 (node.right !== nothing ? size(node.right) : 0) +
                 1
     return node
-end
-
-"""
-    maximum_node(node, parent)
-
-Find maximum node and its parent.
-"""
-function maximum_node(node::BSTNode, parent::BSTNode)
-    if node.right !== nothing
-        node.size -= 1
-        node, parent = maximum_node(node.right, node)
-    end
-
-    return node, parent
 end
 
 """
