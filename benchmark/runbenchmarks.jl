@@ -80,9 +80,32 @@ function benchmark_queue_benchmark()
     return all(res)
 end
 
+function benchmark_bst()
+    res = []
+    
+    n = 10^6
+    c = shuffle(1:n)
+    t = BST{Int64, Int64}()
+
+    @time for i in c
+        put!(t, i, 2i)
+    end
+
+    @time for i in 1:n
+        get!(t, i)
+    end
+
+    @time for i in 1:n
+        delete!(t, i)
+    end
+
+    return true
+end
+
 function runbenchmark()
-benchmark_slinkedlist_benchmark()
+    benchmark_slinkedlist_benchmark()
     benchmark_dlinkedlist_benchmark()
     benchmark_queue_benchmark()
     benchmark_stack_benchmark()
+    function_benchmark_bst()
 end

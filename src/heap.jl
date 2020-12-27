@@ -76,8 +76,8 @@ end
 Meld two nodes.
 """
 function meld(node1::BNode{T}, node2::BNode{T}) where T
-    if node1.key == nothing return node2 end
-    if node2.key == nothing return node1 end
+    if node1.key === nothing return node2 end
+    if node2.key === nothing return node1 end
 
     if node1.key > node2.key
         tmp = node1
