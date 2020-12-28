@@ -95,7 +95,7 @@ function test_bst_maximum()
         @test isbst(t)
     end
 
-    @test (maxx(t).key, maxx(t).value) == (maximum(c), 2maximum(c))
+    @test (maximum(t).key, maximum(t).value) == (maximum(c), 2maximum(c))
 
     return nothing
 end
@@ -111,7 +111,7 @@ function test_bst_minimum()
         @test isbst(t)
     end
 
-    @test (minx(t).key, minx(t).value) == (minimum(c), 2minimum(c))
+    @test (minimum(t).key, minimum(t).value) == (minimum(c), 2minimum(c))
 
     return nothing
 end

@@ -1,7 +1,7 @@
 # Unit test functions
 function unit_test_queue()
     q = Queue(DLinkedList{Float64}())
-    @test true
+    @test length(q.data) == 0
 
     return nothing
 end

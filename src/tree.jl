@@ -117,7 +117,6 @@ function delete!(node::Union{BSTNode{S,T}, Nothing}, parent::Union{BSTNode{S,T},
     node.size = (node.left !== nothing ? size(node.left) : 0) +
                 (node.right !== nothing ? size(node.right) : 0) +
                 1
-
     return nothing
 end
 
@@ -164,7 +163,7 @@ function delete!(node::Union{BSTNode{S,T}, Nothing}, key::S) where {S,T}
         if node.left === nothing return node.right end
         t = node
         
-        node = maxx(t.left) # 1st traversal
+        node = maximum(t.left) # 1st traversal
         node.left = deletemax!(t.left) # 2nd traversal
         node.right = t.right
     end
@@ -259,32 +258,32 @@ size(bst::BST) = length(bst)
 size(n::BSTNode) = n.size
 
 """
-    minx(bst)
-    minx(node)
+    minimum(bst)
+    minimum(node)
 
 Find minimum node.
 """
-minx(bst::BST) = minx(bst.root)
-function minx(node::BSTNode) 
+minimum(bst::BST) = minimum(bst.root)
+function minimum(node::BSTNode) 
     if node.left === nothing
         return node
     end
 
-    return minx(node.left)
+    return minimum(node.left)
 end
 
 """
-    maxx(bst)
+    maximum(bst)
 
 Find maximum node.
 """
-maxx(bst::BST) = maxx(bst.root)
-function maxx(node::BSTNode)
+maximum(bst::BST) = maximum(bst.root)
+function maximum(node::BSTNode)
     if node.right === nothing
         return node
     end
 
-    return maxx(node.right)
+    return maximum(node.right)
 end
 
 """

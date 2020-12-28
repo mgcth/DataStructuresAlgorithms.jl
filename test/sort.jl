@@ -1,17 +1,17 @@
 # Unit test functions
 function unit_test_selectionsort_empty()
     a = Vector{Float64}(undef, 0)
-    @test selectionsort(a) == a
+    @test selectionsort!(a) == a
     
     return nothing
 end
 
 function unit_test_selectionsort_one()
     a = [10.0]
-    @test selectionsort(a) == a
+    @test selectionsort!(a) == a
 
     a = [10]
-    @test selectionsort(a) == a
+    @test selectionsort!(a) == a
     
     return nothing
 end
@@ -20,7 +20,7 @@ function unit_test_selectionsort_many()
     # known example list
     a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
     as = [1.0, 3.0, 5.0, 6.0, 10.0, 10.0]
-    @test selectionsort(a) == as
+    @test selectionsort!(a) == as
     
     return nothing
 end
@@ -30,7 +30,7 @@ function unit_test_selectionsort_real()
     # random example list
     a = rand((0:n), n)
     as = sort(a)
-    @test selectionsort(a) == as
+    @test selectionsort!(a) == as
     
     return nothing
 end
@@ -39,24 +39,24 @@ function unit_test_selectionsort_string()
     # known example list
     a = "A search has no name."
     as = sort(a) # use built in for answer
-    @test selectionsort(a, "A") == as
+    @test selectionsort!(a, "A") == as
     
     return nothing
 end
 
 function unit_test_insertionsort_empty()
     a = Vector{Float64}(undef, 0)
-    @test insertionsort(a) == a
+    @test insertionsort!(a) == a
     
     return nothing
 end
 
 function unit_test_insertionsort_one()
     a = [10.0]
-    @test insertionsort(a) == a
+    @test insertionsort!(a) == a
 
     a = [10]
-    @test insertionsort(a) == a
+    @test insertionsort!(a) == a
     
     return nothing
 end
@@ -65,7 +65,7 @@ function unit_test_insertionsort_many()
     # known example list
     a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
     as = [1.0, 3.0, 5.0, 6.0, 10.0, 10.0]
-    @test insertionsort(a) == as
+    @test insertionsort!(a) == as
     
     return nothing
 end
@@ -75,7 +75,7 @@ function unit_test_insertionsort_real()
     # random example list
     a = rand((0:n), n)
     as = sort(a)
-    @test insertionsort(a) == as
+    @test insertionsort!(a) == as
     
     return nothing
 end
@@ -84,7 +84,7 @@ function unit_test_insertionsort_string()
     # known example list
     a = "A search has no name."
     as = sort(a) # use built in for answer
-    @test insertionsort(a, "A") == as
+    @test insertionsort!(a, "A") == as
     
     return nothing
 end
@@ -133,6 +133,51 @@ function unit_test_mergesort_string()
     
     return nothing
 end
+
+function unit_test_quicksort_empty()
+    a = Vector{Float64}(undef, 0)
+    @test quicksort!(a) == a
+    
+    return nothing
+end
+
+function unit_test_quicksort_one()
+    a = [10.0]
+    @test quicksort!(a) == a
+
+    a = [10]
+    @test quicksort!(a) == a
+    
+    return nothing
+end
+
+function unit_test_quicksort_many()
+    # known example list
+    a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
+    as = [1.0, 3.0, 5.0, 6.0, 10.0, 10.0]
+    @test quicksort!(a) == as
+    
+    return nothing
+end
+
+function unit_test_quicksort_real()
+    n = 10^4
+    # random example list
+    a = rand((0:n), n)
+    as = sort(a)
+    @test quicksort!(a) == as
+    
+    return nothing
+end
+
+function unit_test_quicksort_string()
+    # known example list
+    a = "A search has no name."
+    as = sort(a) # use built in for answer
+    @test quicksort!(a, "A") == as
+    
+    return nothing
+end
     
 # Run the unit tests
 @testset "Selection sort" begin
@@ -157,4 +202,12 @@ end
     unit_test_mergesort_many()
     unit_test_mergesort_real()
     # unit_test_mergesort_string()
+end
+
+@testset "Quicksort " begin
+    unit_test_quicksort_empty()
+    unit_test_quicksort_one()
+    unit_test_quicksort_many()
+    unit_test_quicksort_real()
+    # unit_test_quicksort_string()
 end

@@ -1,6 +1,3 @@
-import DAT038.linearsearch,
-       DAT038.binarysearch
-
 # Unit test functions
 function unit_test_linearsearch_empty()
     a = Vector{Float64}(undef, 0)

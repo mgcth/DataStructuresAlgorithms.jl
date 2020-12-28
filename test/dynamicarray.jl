@@ -1,12 +1,3 @@
-import DAT038.DynamicArray,
-       DAT038.size,
-       DAT038.isempty,
-       DAT038.push!,
-       DAT038.pop!,
-       DAT038.getindex!,
-       DAT038.setindex!,
-       DAT038.resize!
-
 # Unit test functions
 function unit_test_dynamicarray_empty()
     d = DynamicArray{Float64}()

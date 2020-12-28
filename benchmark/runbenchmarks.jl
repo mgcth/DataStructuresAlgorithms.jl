@@ -149,13 +149,24 @@ function benchmark_insertionsort()
     return all(res)
 end
 
-function benchmark_mergesort()
-    n = 10^5
+function benchmark_mergesort(n = 10^5)
     a = rand((0:n), n)
     as = sort(a)
 
     println("Test performance in merge sort for n = $n: ")
     @time res = mergesort(a) 
+    res = res .== as
+
+    return all(res)
+end
+
+function benchmark_quicksort(n = 10^5)
+    n = 10^5
+    a = rand((0:n), n)
+    as = sort(a)
+
+    println("Test performance in quicksort with median-of-three for n = $n: ")
+    @time res = quicksort!(a) 
     res = res .== as
 
     return all(res)
@@ -178,6 +189,34 @@ function benchmark_dynamicarray()
     return true
 end
 
+function benchmark_rmheap()
+    n = 10^4
+    r = RMHeap{Float64}()
+
+    @time for i = 1:n
+        add!(r, convert(Float64, i))
+    end
+
+    @time remove!(r)
+
+    # @time for i = 1:n
+    #     remove(r)
+    # end
+    return true
+end
+
+function benchmark_minpq()
+    n = 10^4
+    r = MinPQ{Int}()
+
+    @time for i = 1:n
+        add!(r, i)
+    end
+
+    @time add!(r, 1)
+    return true
+end
+
 function runbenchmark()
     benchmark_slinkedlist()
     benchmark_dlinkedlist()
@@ -189,5 +228,8 @@ function runbenchmark()
     benchmark_selectionsort()
     benchmark_insertionsort()
     benchmark_mergesort()
+    benchmark_quicksort()
     benchmark_dynamicarray()
+    benchmark_rmheap()
+    benchmark_minpq()
 end

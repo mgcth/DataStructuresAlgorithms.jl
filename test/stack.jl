@@ -1,7 +1,7 @@
 # Unit test functions
 function unit_test_stack()
     s = Stack(Vector{Float64}(undef, 0))
-    @test true
+    @test length(s.data) == 0
 
     return nothing
 end
