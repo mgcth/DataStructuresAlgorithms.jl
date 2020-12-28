@@ -1,4 +1,5 @@
-using DAT038
+using DataStructuresAlgorithms
+using Random
 
 function benchmark_slinkedlist()
     n = 10^4
@@ -40,66 +41,62 @@ end
 
 function benchmark_stack()
     n = 10^6
-    res = []
 
     println("Add $n elements to the stack: ")
     s = Stack(Vector{Float64}(undef, 0))
     @time for i in 1:n
         push!(s, Float64(i))
     end
-    push!(res, size(s) == n)
 
     println("Remove $n elements from the stack: ")
     @time for i in 1:n
         pop!(s)
     end
-    push!(res, isempty(s))
 
-    return all(res)
+    return nothing
 end
 
 function benchmark_queue()
     n = 10^6
-    res = []
 
     println("Add $n elements to the queue: ")
-    s = Stack(Vector{Float64}(undef, 0))
+    q = Queue(DLinkedList{Float64}())
     @time for i in 1:n
-        enqueue!(s, Float64(i))
+        enqueue!(q, Float64(i))
     end
-    enqueue!(s, Float64(i))
-    push!(res, size(s) == n + 1)
+    enqueue!(q, Float64(1))
 
     println("Remove $n elements from the queue: ")
-    dequeue!(s)
+    dequeue!(q)
     @time for i in 1:n
-        dequeue!(s)
+        dequeue!(q)
     end
-    push!(res, isempty(s))
 
-    return all(res)
+    return nothing
 end
 
 function benchmark_bst()
-    res = []
     
     n = 10^6
     c = shuffle(1:n)
     t = BST{Int64, Int64}()
 
+    println("Put $n items in binary search tree (random order): ")
     @time for i in c
         put!(t, i, 2i)
     end
 
+    println("Get $n items in binary search tree (random order): ")
     @time for i in 1:n
         get!(t, i)
     end
 
+    println("Delete $n items in binary search tree (random order): ")
     @time for i in 1:n
         delete!(t, i)
     end
 
-    return true
+    return nothing
 end
 
 function benchmark_linearsearch()
@@ -111,7 +108,7 @@ function benchmark_linearsearch()
     el = findfirst(x->x == a[end], a)
     @time res = linearsearch(a, a[end]) == el
     
-    return all(res)
+    return nothing
 end
 
 function benchmark_binarysearch()
@@ -122,7 +119,7 @@ function benchmark_binarysearch()
     println("Test performance in binary search for n = $(n+1): ")
     @time res = binarysearch(a, a[end]) == a[end]
 
-    return all(res)
+    return nothing
 end
 
 function benchmark_selectionsort()
@@ -131,10 +128,10 @@ function benchmark_selectionsort()
     as = sort(a)
 
     println("Test performance in selection sort for n = $n: ")
-    @time res = selectionsort(a) 
+    @time res = selectionsort!(a) 
     res = res .== as
 
-    return all(res)
+    return nothing
 end
 
 function benchmark_insertionsort()
@@ -143,10 +140,10 @@ function benchmark_insertionsort()
     as = sort(a)
 
     println("Test performance in insertion sort for n = $n: ")
-    @time res = insertionsort(a) 
+    @time res = insertionsort!(a) 
     res = res .== as
 
-    return all(res)
+    return nothing
 end
 
 function benchmark_mergesort(n = 10^5)
@@ -157,7 +154,7 @@ function benchmark_mergesort(n = 10^5)
     @time res = mergesort(a) 
     res = res .== as
 
-    return all(res)
+    return nothing
 end
 
 function benchmark_quicksort(n = 10^5)
@@ -169,87 +166,62 @@ function benchmark_quicksort(n = 10^5)
     @time res = quicksort!(a) 
     res = res .== as
 
-    return all(res)
+    return nothing
 end
 
 function benchmark_dynamicarray()
     d = DynamicArray{Float64}()
     n = 10^7
 
-    println("Test adding to dynamic array for n = $n: ")
+    println("Time to add $n items to dynamic array: ")
     @time for i in 1:n
         push!(d, Float64(i))
     end
 
-    println("Test removing from dynamic array for n = $n: ")
+    println("Time to remove $n items from dynamic array: ")
     @time for i in 1:n
         pop!(d)
     end
 
-    return true
-end
-
-function benchmark_rmheap()
-    n = 10^4
-    r = RMHeap{Float64}()
-
-    @time for i = 1:n
-        add!(r, convert(Float64, i))
-    end
-
-    @time remove!(r)
-
-    # @time for i = 1:n
-    #     remove(r)
-    # end
-    return true
-end
-
-function benchmark_minpq()
-    n = 10^4
-    r = MinPQ{Int}()
-
-    @time for i = 1:n
-        add!(r, i)
-    end
-
-    @time add!(r, 1)
-    return true
+    return nothing
 end
 
 function benchmark_rmheap()
     n = 10^4
     r = RMHeap{Int}()
 
+    println("Adding $(n+1) items to random meldable heap: ")
     @time for i = 1:n
         add!(r, i)
     end
-    @time add(r, 1)
+    @time add!(r, 1)
 
+    println("Removing $(n+1) items from random meldable heap: ")
     @time remove!(r)
     @time for i = 1:n
         remove!(r)
     end
 
-    return true
+    return nothing
 end
 
 function benchmark_minpq()
     n = 10^4
     r = MinPQ{Int}()
 
+    println("Adding $(n+1) items to binary heap: ")
     for i = 1:n
         add!(r, i)
     end
+    @time add!(r, 1)
 
-    @time add(r, 1)
-
+    println("Removing $(n+1) items from binary heap: ")
     @time remove!(r)
     @time for i = 1:n
         remove!(r)
     end
-    
-    return true
+
+    return nothing
 end
 
 function runbenchmark()
@@ -257,7 +229,7 @@ function runbenchmark()
     benchmark_dlinkedlist()
     benchmark_queue()
     benchmark_stack()
-    function_benchmark_bst()
+    benchmark_bst()
     benchmark_linearsearch()
     benchmark_binarysearch()
     benchmark_selectionsort()
