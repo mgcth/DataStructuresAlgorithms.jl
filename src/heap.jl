@@ -37,7 +37,7 @@ Add to the heap.
 """
 function add!(rmheap::RMHeap{T}, x::T) where T
     rmheap.root = meld(rmheap.root, BNode{T}(x))
-    rmheap += 1
+    rmheap.N += 1
     return nothing
 end
 
@@ -48,17 +48,21 @@ Remove minimum element from the heap.
 """
 function remove!(rmheap::RMHeap{T}) where T
     x = rmheap.root.key
-    if !isdefined(rmheap, :left)
-        rmheap = rmheap.root.right
+    rmheap.N -= 1
+    if !isdefined(rmheap.root, :left) && !isdefined(rmheap.root, :right)
+        rmheap.root = BNode{T}()
         return x
     end
-    if !isdefined(rmheap, :right)
-        rmheap = rmheap.root.left
+    if !isdefined(rmheap.root, :left)
+        rmheap.root = rmheap.root.right
         return x
     end
-    meld!(rmheap.root.left, rmheap.root.right)
-    rmheap -= 1
-    
+    if !isdefined(rmheap.root, :right)
+        rmheap.root = rmheap.root.left
+        return x
+    end
+    rmheap.root = meld(rmheap.root.left, rmheap.root.right)
+
     return x
 end
 
@@ -104,7 +108,7 @@ end
 
 Get the minimum element, don't remove.
 """
-getmin(rmheap::RMHeap) = rmheap.root
+getmin(rmheap::RMHeap) = rmheap.root.key
 
 """
     length(rmheap)
@@ -136,7 +140,7 @@ isempty(rmheap::RMHeap) = rmheap.N == 0
 Binary heap minimum priority queue.
 """
 mutable struct MinPQ{T}
-    pq::Vector{T}
+    root::Vector{T}
     N::Int
     MinPQ{T}(n::Int) where T = new(Vector{T}(undef, n), n)
     MinPQ{T}() where T = new(Vector{T}(undef, 0), 0)
@@ -149,24 +153,26 @@ Add element to the priority queue.
 """
 function add!(pq::MinPQ{T}, x::T) where T
     pq.N += 1
-    push!(pq.pq, x)
+    push!(pq.root, x)
     swim!(pq, pq.N)
 
     return nothing
 end
 
 """
-    removemin(pq)
+    remove!(pq)
 
 Remove and get the smallst element from the priority queue.
 """
-function removemin!(pq::MinPQ)
-    min = pq.pq[1]
-    pq.pq[1] = pq.pq[pq.N]
-    pq.pq[pq.N] = min
-    pop!(pq.pq)
+function remove!(pq::MinPQ)
+    if pq.N == 0 return nothing end
+
+    min = pq.root[1]
+    pq.root[1] = pq.root[pq.N]
+    pq.root[pq.N] = min
+    pop!(pq.root)
     pq.N -= 1
-    sink(pq, 1)
+    sink!(pq, 1)
 
     return min
 end
@@ -178,9 +184,9 @@ Increase an elements priority in the priority queue.
 """
 function swim!(pq::MinPQ, k::Int)
     while k > 1 && greater(pq, k ÷ 2, k)
-        tmp = pq.pq[k ÷ 2]
-        pq.pq[k ÷ 2] = pq.pq[k]
-        pq.pq[k] = tmp
+        tmp = pq.root[k ÷ 2]
+        pq.root[k ÷ 2] = pq.root[k]
+        pq.root[k] = tmp
         k = k ÷ 2  
     end
 
@@ -197,9 +203,9 @@ function sink!(pq::MinPQ, k::Int)
         j = 2k
         if j < pq.N && greater(pq, j, j + 1) j += 1 end
         if !greater(pq, k, j) break end
-        tmp = pq.pq[k]
-        pq.pq[k] = pq.pq[j]
-        pq.pq[j] = tmp
+        tmp = pq.root[k]
+        pq.root[k] = pq.root[j]
+        pq.root[j] = tmp
         k = j
     end
 
@@ -218,14 +224,14 @@ isempty(pq::MinPQ) = pq.N == 0
 
 Get the smallest element from priority queue, don't remove.
 """
-getmin(pq::MinPQ) = pq.pq[1]
+getmin(pq::MinPQ) = pq.root[1]
 
 """
     greater(pq, i, j)
 
 Check if element i is larger than element j in priority queue.
 """
-greater(pq::MinPQ, i::Int, j::Int) = pq.pq[i] > pq.pq[j]
+greater(pq::MinPQ, i::Int, j::Int) = pq.root[i] > pq.root[j]
 
 """
     length(pq)
@@ -245,18 +251,25 @@ Check that heap invariant holds.
 """
 isheap(heap::RMHeap) = isheap(heap.root)
 function isheap(node::BNode)
-    if node === nothing return nothing end
-    if node.key > node.left.key return false end
-    if node.key > node.left.key return false end
-    isheap(node.left)
-    isheap(node.right)
+    if isdefined(node, :left)
+        if node.key > node.left.key
+            return false
+        end
+        isheap(node.left)
+    end
+    if isdefined(node, :right)
+        if node.key > node.right.key
+            return false
+        end
+        isheap(node.right)
+    end
 
     return true
 end
 
 function isheap(pq::MinPQ)
     if isempty(pq) return true end
-    data = pq.pq
+    data = pq.root
 
     i = 1
     while 2i <= pq.N

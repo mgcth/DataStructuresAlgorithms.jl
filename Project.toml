@@ -1,5 +1,5 @@
-name = "DAT038"
-uuid = "a76f558d-eee5-4a33-aaa3-5f6366b3ca55"
+name = "DataStructuresAlgorithms"
+uuid = "496baebc-abf3-49c2-82f0-ec9ac4cd24bb"
 authors = ["Mladen Gibanica <mgcth@users.noreply.github.com>"]
 version = "0.1.0"
 

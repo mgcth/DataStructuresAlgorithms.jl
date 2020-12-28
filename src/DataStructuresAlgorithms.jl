@@ -1,4 +1,4 @@
-module DAT038
+module DataStructuresAlgorithms
 
 using Random
 
@@ -7,7 +7,7 @@ export linearsearch, binarysearch
 export selectionsort!, insertionsort!, mergesort, quicksort!
 export SLinkedList, DLinkedList, addlast!, addfirst!, add!, removelast!, removefirst!, remove!, peeklast, peekfirst
 export Queue, enqueue!, dequeue!, peek, peekfirst, peeklast
-export RMHeap, BNode, add!, remove!, meld!, MinPQ, add!, isheap
+export RMHeap, BNode, add!, remove!, meld!, MinPQ, add!, isheap, greater, getmin
 export BST, BSTNode, printsort, isbst, maximum_node
 export eltype, iterate
 

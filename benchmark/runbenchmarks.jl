@@ -217,6 +217,41 @@ function benchmark_minpq()
     return true
 end
 
+function benchmark_rmheap()
+    n = 10^4
+    r = RMHeap{Int}()
+
+    @time for i = 1:n
+        add!(r, i)
+    end
+    @time add(r, 1)
+
+    @time remove!(r)
+    @time for i = 1:n
+        remove!(r)
+    end
+
+    return true
+end
+
+function benchmark_minpq()
+    n = 10^4
+    r = MinPQ{Int}()
+
+    for i = 1:n
+        add!(r, i)
+    end
+
+    @time add(r, 1)
+
+    @time remove!(r)
+    @time for i = 1:n
+        remove!(r)
+    end
+    
+    return true
+end
+
 function runbenchmark()
     benchmark_slinkedlist()
     benchmark_dlinkedlist()
@@ -230,6 +265,8 @@ function runbenchmark()
     benchmark_mergesort()
     benchmark_quicksort()
     benchmark_dynamicarray()
+    benchmark_rmheap()
+    benchmark_minpq()
     benchmark_rmheap()
     benchmark_minpq()
 end

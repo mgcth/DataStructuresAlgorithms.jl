@@ -1,6 +1,6 @@
-# DAT038.jl Documentation
+# DataStructuresAlgorithms.jl Documentation
 
 ```@autodocs
-Modules = [DAT038]
+Modules = [DataStructuresAlgorithms]
 Order   = [:function, :type]
 ```

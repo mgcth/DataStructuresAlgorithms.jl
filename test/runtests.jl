@@ -1,15 +1,14 @@
 using Random
 using Test
 
-using DAT038
+using DataStructuresAlgorithms
 
 #include("search.jl")
-include("sort.jl")
+#include("sort.jl")
 #include("stack.jl")
 #include("dynamicarray.jl")
 #include("list.jl")
 #include("queue.jl")
 
 #include("tree.jl")
-#include("heap.jl")
-#include("graph.jl")
+include("heap.jl")
