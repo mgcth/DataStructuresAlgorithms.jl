@@ -107,7 +107,7 @@ end
 """
     quicksort!()
 
-Basic quicksort algorithm.
+Basic quicksort algorithm. Time complexity O(nlogn), worst case with bad pivor O(n^2).
 """
 quicksort!(a::AbstractVector) = quicksort!(a, 1, length(a))
 

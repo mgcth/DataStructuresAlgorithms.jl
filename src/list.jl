@@ -27,9 +27,9 @@ Singly linked list node. Holds pointer to next node and some value.
 mutable struct SLLNode{T} <: LLNode{T}
     next::SLLNode{T}
     value::NValueType{T}
-    SLLNode{T}() where T = (x = new(); x.next = x; x)
+    SLLNode{T}() where T = (x = new(); x.next = x; x.value = nothing; x)
     SLLNode{T}(y::T) where T = (x = new(); x.next = x; x.value = y; x)
-    SLLNode{T}(n::SLLNode{T}, x::T) where T = new(n, x)
+    SLLNode{T}(n::SLLNode{T}, y::T) where T = new(n, y)
 end
 
 """
@@ -41,9 +41,9 @@ mutable struct DLLNode{T} <: LLNode{T}
     prev::DLLNode{T}
     next::DLLNode{T}
     value::NValueType{T}
-    DLLNode{T}() where T = (x = new(); x.prev = x; x.next = x; x)
+    DLLNode{T}() where T = (x = new(); x.prev = x; x.next = x; x.value = nothing; x)
     DLLNode{T}(y::T) where T = (x = new(); x.prev = x; x.next = x; x.value = y; x)
-    DLLNode{T}(p::DLLNode{T}, n::DLLNode{T}, x::T) where T = new(p, n, x)
+    DLLNode{T}(p::DLLNode{T}, n::DLLNode{T}, y::T) where T = new(p, n, y)
 end
 
 """

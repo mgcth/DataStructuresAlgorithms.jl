@@ -1,5 +1,5 @@
 push!(LOAD_PATH,"../src/")
 
-using Documenter, DAT038
+using Documenter, DataStructuresAlgorithms
 
 makedocs(sitename="Documentation for DAT038")

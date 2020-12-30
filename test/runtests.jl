@@ -9,6 +9,6 @@ using DataStructuresAlgorithms
 #include("dynamicarray.jl")
 #include("list.jl")
 #include("queue.jl")
-
 #include("tree.jl")
-include("heap.jl")
+#include("heap.jl")
+include("hash.jl")

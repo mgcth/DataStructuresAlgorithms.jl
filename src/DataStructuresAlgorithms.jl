@@ -9,12 +9,13 @@ export SLinkedList, DLinkedList, addlast!, addfirst!, add!, removelast!, removef
 export Queue, enqueue!, dequeue!, peek, peekfirst, peeklast
 export RMHeap, BNode, add!, remove!, meld!, MinPQ, add!, isheap, greater, getmin
 export BST, BSTNode, printsort, isbst, maximum_node
-export eltype, iterate
+export SCHash, SCLHash, OAHash, compress
+
 
 import Base.push!, Base.pop!, Base.isempty, Base.peek, Base.show
 import Base.getindex, Base.resize!, Base.setindex!, Base.:(==)
 import Base.iterate, Base.eltype, Base.length, Base.size, Base.get!, Base.put!
-import Base.delete!, Base.collect, Base.minimum, Base.maximum
+import Base.delete!, Base.collect, Base.minimum, Base.maximum, Base.get, Base.hash
 
 include("dynamicarray.jl")
 include("stack.jl")
@@ -25,5 +26,6 @@ include("search.jl")
 include("search.jl")
 include("heap.jl")
 include("tree.jl")
+include("hash.jl")
 
 end # module
