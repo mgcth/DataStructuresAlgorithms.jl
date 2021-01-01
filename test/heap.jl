@@ -289,22 +289,9 @@ end
     unit_test_rmheap_empty_isheap()
     #unit_test_minpq_add() # bit harder, random
     #unit_test_minpq_remove() # bit harder, random
-    unit_test_minpq_size()
-    unit_test_minpq_getmin()
-    unit_test_minpq_isempty()
-    unit_test_rmheap_example()
 end
 
 @testset "Minimum priority queue   " begin
-    unit_test_minpq_empty()
-    unit_test_minpq_empty_isheap()
-    unit_test_minpq_add()
-    unit_test_minpq_greater()
-    unit_test_minpq_remove()
-    unit_test_minpq_size()
-    unit_test_minpq_getmin()
-    unit_test_minpq_isempty()
-    unit_test_minpq_example()
     #unit_test_minpq_sink()
     #unit_test_minpq_swim()
 end
