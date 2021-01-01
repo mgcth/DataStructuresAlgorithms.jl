@@ -24,13 +24,13 @@ function benchmark_dlinkedlist()
     n = 10^4
     l = DLinkedList{Int64}()
     
-    println("SLL time to addlast for $n nodes: ")
+    println("DLL time to addlast for $n nodes: ")
     @time for i in 1:n
         addlast!(l, i)
     end
     @time addlast!(l, 1)
 
-    println("SLL time to removelast for $n nodes: ")
+    println("DLL time to removelast for $n nodes: ")
     @time removelast!(l)
     @time for i in 1:n
         removelast!(l)
@@ -48,7 +48,7 @@ function benchmark_stack()
         push!(s, Float64(i))
     end
 
-    println("Remove $n elements from the stack: ")
+    println("Remove all $n elements from the stack: ")
     @time for i in 1:n
         pop!(s)
     end
@@ -66,7 +66,7 @@ function benchmark_queue()
     end
     enqueue!(q, Float64(1))
 
-    println("Remove $n elements from the queue: ")
+    println("Remove all $n elements from the queue: ")
     dequeue!(q)
     @time for i in 1:n
         dequeue!(q)
@@ -86,12 +86,12 @@ function benchmark_bst()
         put!(t, i, 2i)
     end
 
-    println("Get $n items in binary search tree (random order): ")
+    println("Get all $n items in binary search tree (random order): ")
     @time for i in 1:n
         get!(t, i)
     end
 
-    println("Delete $n items in binary search tree (random order): ")
+    println("Delete all $n items in binary search tree (random order): ")
     @time for i in 1:n
         delete!(t, i)
     end
@@ -190,14 +190,16 @@ function benchmark_rmheap()
     n = 10^4
     r = RMHeap{Int}()
 
-    println("Adding $(n+1) items to random meldable heap: ")
+    println("Adding $n items to randomised meldable heap: ")
     @time for i = 1:n
         add!(r, i)
     end
+    println("Adding 1 item to randomised meldable heap with $n items: ")
     @time add!(r, 1)
 
-    println("Removing $(n+1) items from random meldable heap: ")
+    println("Removing 1 item from randomised meldable heap with $(n+1) items: ")
     @time remove!(r)
+    println("Removing all $n items from randomised meldable heap: ")
     @time for i = 1:n
         remove!(r)
     end
@@ -209,14 +211,16 @@ function benchmark_minpq()
     n = 10^4
     r = MinPQ{Int}()
 
-    println("Adding $(n+1) items to binary heap: ")
+    println("Adding $n items to binary heap: ")
     for i = 1:n
         add!(r, i)
     end
+    println("Adding 1 item to binary heap with $n items: ")
     @time add!(r, 1)
 
-    println("Removing $(n+1) items from binary heap: ")
+    println("Removing 1 item from binary heap with $(n+1) items: ")
     @time remove!(r)
+    println("Removing all $n items from binary heap: ")
     @time for i = 1:n
         remove!(r)
     end
