@@ -4,7 +4,7 @@ using Test
 using DataStructuresAlgorithms
 
 #include("search.jl")
-#include("sort.jl")
+include("sort.jl")
 #include("stack.jl")
 #include("dynamicarray.jl")
 #include("list.jl")
