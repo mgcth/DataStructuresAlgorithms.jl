@@ -7,9 +7,9 @@ A selection sort algorithm. Time complexity O(n^2).
 """
 function selectionsort!(a::AbstractVector{T}) where T <: Number
     for i in 1:length(a)
-        min = typemax(T)
-        k = 1
-        for j in i:length(a)
+        min = a[i]
+        k = i
+        for j in i+1:length(a)
             if a[j] < min
                 min = a[j]
                 k = j
