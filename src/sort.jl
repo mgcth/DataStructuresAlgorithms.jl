@@ -125,7 +125,6 @@ end
 
 function partition(a, lo, hi)
     pivot = pivot_mo3(a, lo, hi) # median of three
-    swap!(a, lo, hi)
     lo0 = lo
     lo += 1
 
@@ -165,5 +164,6 @@ function pivot_mo3(a, lo, hi)
     if a[mid] < a[hi]
         swap!(a, mid, hi)
     end
-    pivot = a[hi]
+    swap!(a, lo, hi)
+    pivot = a[lo]
 end
