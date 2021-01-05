@@ -20,10 +20,10 @@ end
 
 Binary search in array, find any occurance. Time complexity O(logn).
 """
-function binarysearch(a::Union{AbstractVector{T}, T}, item::T)::Int where T
+function binarysearch(a::Union{AbstractVector{T}, T}, item::T) where T
     lo::Int = 1
     hi::Int = length(a)
-    if hi == 0 return 0 end
+    if hi == 0 return nothing end
 
     mid::Int = 0
     item = first(item)
@@ -39,5 +39,5 @@ function binarysearch(a::Union{AbstractVector{T}, T}, item::T)::Int where T
         end
     end
 
-    return item == a[mid] ? mid : zero(typeof(item))
+    return item == a[mid] ? mid : nothing
 end

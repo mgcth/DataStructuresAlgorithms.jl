@@ -49,23 +49,23 @@ end
 
 function unit_test_binarysearch_empty()
     a = Vector{Float64}(undef, 0)
-    @test binarysearch(a, 0.0) == 0
-    @test binarysearch(a, 2.0) == 0
-    @test binarysearch(a, NaN) == 0
-    @test binarysearch(a, Inf) == 0
+    @test binarysearch(a, 0.0) === nothing
+    @test binarysearch(a, 2.0) === nothing
+    @test binarysearch(a, NaN) === nothing
+    @test binarysearch(a, Inf) === nothing
     
     return nothing
 end
 
 function unit_test_binarysearch_one()
     a = [10.0]
-    @test binarysearch(a, 0.0) == 0
+    @test binarysearch(a, 0.0) === nothing
     @test binarysearch(a, 10.0) == 1
-    @test binarysearch(a, NaN) == 0
-    @test binarysearch(a, Inf) == 0
+    @test binarysearch(a, NaN) === nothing
+    @test binarysearch(a, Inf) === nothing
 
     a = [10]
-    @test binarysearch(a, 0) == 0
+    @test binarysearch(a, 0) === nothing
     @test binarysearch(a, 10) == 1
     
     return nothing
@@ -79,8 +79,8 @@ function unit_test_binarysearch_many()
     @test binarysearch(a, 3.0) == 2
     @test binarysearch(a, 5.0) == 3
     @test binarysearch(a, 6.0) == 4
-    @test binarysearch(a, NaN) == 0
-    @test binarysearch(a, Inf) == 0
+    @test binarysearch(a, NaN) === nothing
+    @test binarysearch(a, Inf) === nothing
     
     return nothing
 end
@@ -96,9 +96,9 @@ function unit_test_binarysearch_string()
     @test binarysearch(a, "f") == 6
     @test binarysearch(a, "g") == 7
     @test binarysearch(a, "h") == 8
-    @test binarysearch(a, " ") == 0
-    @test binarysearch(a, "i") == 0
-    @test binarysearch(a, "0") == 0
+    @test binarysearch(a, " ") === nothing
+    @test binarysearch(a, "i") === nothing
+    @test binarysearch(a, "0") === nothing
     
     return nothing
 end
