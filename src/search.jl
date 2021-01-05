@@ -39,5 +39,5 @@ function binarysearch(a::Union{AbstractVector{T}, T}, item::T)::Int where T
         end
     end
 
-    return item == a[mid] ? mid : 0
+    return item == a[mid] ? mid : zero(typeof(item))
 end
