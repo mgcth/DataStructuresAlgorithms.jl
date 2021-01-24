@@ -6,6 +6,7 @@ function unit_test_dynamicarray_empty()
     return nothing
 end
 
+
 function unit_test_dynamicarray_size()
     d = DynamicArray{Float64}()
     @test size(d) == 0
@@ -13,12 +14,14 @@ function unit_test_dynamicarray_size()
     return nothing
 end
 
+
 function unit_test_dynamicarray_isempty()
     d = DynamicArray{Float64}()
     @test isempty(d)
     
     return nothing
 end
+
 
 function unit_test_dynamicarray_push()
     d = DynamicArray{Float64}()
@@ -29,6 +32,7 @@ function unit_test_dynamicarray_push()
     return nothing
 end
 
+
 function unit_test_dynamicarray_pop()
     d = DynamicArray{Float64}()
     val = 1.0
@@ -38,6 +42,7 @@ function unit_test_dynamicarray_pop()
     return nothing
 end
 
+
 function unit_test_dynamicarray_getindex()
     d = DynamicArray{Float64}()
     val = 2.0
@@ -46,6 +51,7 @@ function unit_test_dynamicarray_getindex()
     
     return nothing
 end
+
 
 function unit_test_dynamicarray_setindex()
     d = DynamicArray{Float64}()
@@ -58,6 +64,7 @@ function unit_test_dynamicarray_setindex()
     return nothing
 end
 
+
 function unit_test_dynamicarray_resize()
     d = DynamicArray{Float64}()
     capacity = 8
@@ -66,7 +73,8 @@ function unit_test_dynamicarray_resize()
     
     return nothing
 end
-    
+ 
+
 # Run the unit tests
 @testset "Dynamic array" begin
     unit_test_dynamicarray_empty()

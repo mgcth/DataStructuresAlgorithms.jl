@@ -10,8 +10,9 @@ mutable struct DynamicArray{T}
     DynamicArray{T}() where T = new(0, 0, Vector{T}(undef, 0))
 end
 
+
 """
-    push!(a, x)
+    push!(a::DynamicArray{T}, x::T)
 
 Add new element x to end of existing array a. Amortised time complexity O(1).
 """
@@ -27,8 +28,9 @@ function push!(a::DynamicArray{T}, x::T) where T
     return nothing
 end
 
+
 """
-    pop!(a)
+    pop!(a::DynamicArray)
 
 Remove last element from array a. Amortised time complexity O(1).
 """
@@ -43,8 +45,9 @@ function pop!(a::DynamicArray)
     return x
 end
 
+
 """
-    getindex(a, i)
+    getindex(aDynamicArray, i::Int)
 
 Get element from array a at index i.
 """
@@ -54,29 +57,33 @@ function getindex(a::DynamicArray, i::Int)
     return a.data[i]
 end
 
+
 """
-    setindex!(a, x, i)
+    setindex!(a::DynamicArray{T}, x::T, i::Int)
 
 Set array a at index i to x.
 """
 setindex!(a::DynamicArray{T}, x::T, i::Int) where T = (a.data[i] = x)
 
+
 """
-    size(a)
+    size(a::DynamicArray)
 
 Get size of dynamic array.
 """
 size(a::DynamicArray) = a.size
 
+
 """
-    resize!(a, n)
+    resize!(a::DynamicArray, n::Int)
 
 Resize the array.
 """
 resize!(a::DynamicArray, n::Int) = (a.capacity = n; resize!(a.data, n))
 
+
 """
-    isempty(a)
+    isempty(a::DynamicArray)
 
 Check if array is empty.
 """
