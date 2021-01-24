@@ -6,12 +6,14 @@ function unit_test_queue()
     return nothing
 end
 
+
 function unit_test_queue_isempty()
     q = Queue(DLinkedList{Float64}())
     res = isempty(q)
 
     return nothing
 end
+
 
 function unit_test_queue_enqueue()
     q = Queue(DLinkedList{Float64}())
@@ -26,6 +28,7 @@ function unit_test_queue_enqueue()
 
     return nothing
 end
+
 
 function unit_test_queue_dequeue()
     q = Queue(DLinkedList{Float64}())
@@ -43,6 +46,7 @@ function unit_test_queue_dequeue()
 
     return nothing
 end
+
 
 function unit_test_queue_enqueuedequeue()
     res = []
@@ -68,6 +72,7 @@ function unit_test_queue_enqueuedequeue()
     return nothing
 end
 
+
 function unit_test_queue_peek()
     res = []
     q = Queue(DLinkedList{Float64}())
@@ -83,17 +88,33 @@ function unit_test_queue_peek()
     return nothing
 end
 
+
 function unit_test_queue_length()
     res = []
 
     q = Queue(DLinkedList{Float64}())
     val = 1.0
     enqueue!(q, val)
-    @test size(q) == 1
     @test length(q) == 1
+    enqueue!(q, val)
+    @test length(q) == 2
 
     return nothing
 end
+
+function unit_test_queue_size()
+    res = []
+
+    q = Queue(DLinkedList{Float64}())
+    val = 1.0
+    enqueue!(q, val)
+    @test size(q) == 1
+    enqueue!(q, val)
+    @test size(q) == 2
+
+    return nothing
+end
+
 
 # Run the unit tests
 @testset "Queue" begin
@@ -104,4 +125,5 @@ end
     unit_test_queue_enqueuedequeue()
     unit_test_queue_peek()
     unit_test_queue_length()
+    unit_test_queue_size()
 end
