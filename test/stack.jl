@@ -6,12 +6,14 @@ function unit_test_stack()
     return nothing
 end
 
+
 function unit_test_stack_isempty()
     s = Stack(Vector{Float64}(undef, 0))
     @test isempty(s)
 
     return nothing
 end
+
 
 function unit_test_stack_push()
     s = Stack(Vector{Float64}(undef, 0))
@@ -21,6 +23,7 @@ function unit_test_stack_push()
 
     return nothing
 end
+
 
 function unit_test_stack_pop()
     s = Stack(Vector{Float64}(undef, 0))
@@ -32,6 +35,7 @@ function unit_test_stack_pop()
     return nothing
 end
 
+
 function unit_test_stack_peek()
     s = Stack(Vector{Float64}(undef, 0))
     val = 1.0
@@ -41,15 +45,30 @@ function unit_test_stack_peek()
     return nothing
 end
 
+
 function unit_test_stack_size()
     s = Stack(Vector{Float64}(undef, 0))
     val = 1.0
     push!(s, val)
     @test size(s) == 1
-    @test length(s) == 1
+    push!(s, val)
+    @test length(s) == 2
 
     return nothing
 end
+
+
+function unit_test_stack_length()
+    s = Stack(Vector{Float64}(undef, 0))
+    val = 1.0
+    push!(s, val)
+    @test length(s) == 1
+    push!(s, val)
+    @test length(s) == 2
+
+    return nothing
+end
+
 
 # Run the unit tests
 @testset "Stack" begin
@@ -59,4 +78,5 @@ end
     unit_test_stack_pop()
     unit_test_stack_peek()
     unit_test_stack_size()
+    unit_test_stack_length()
 end
