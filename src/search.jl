@@ -1,5 +1,5 @@
 """
-    linearsearch(a, item)
+    linearsearch(a::Union{AbstractVector{T}, T}, item::T)
 
 Linear search in array, find first occurance. Time complexity O(n).
 """
@@ -15,8 +15,9 @@ function linearsearch(a::Union{AbstractVector{T}, T}, item::T)::Int where T
     return 0
 end
 
+
 """
-    binarysearch(a, item)
+    binarysearch(a::Union{AbstractVector{T}, T}, item::T)
 
 Binary search in array, find any occurance. Time complexity O(logn).
 """

@@ -9,6 +9,7 @@ function unit_test_linearsearch_empty()
     return nothing
 end
 
+
 function unit_test_linearsearch_one()
     a = [10.0]
     @test linearsearch(a, 0.0) == 0
@@ -22,6 +23,7 @@ function unit_test_linearsearch_one()
     
     return nothing
 end
+
 
 function unit_test_linearsearch_many()
     # known example list
@@ -37,6 +39,7 @@ function unit_test_linearsearch_many()
     return nothing
 end
 
+
 function unit_test_linearsearch_string()
     # known example list
     a = "A search has no name."
@@ -47,6 +50,7 @@ function unit_test_linearsearch_string()
     return nothing
 end
 
+
 function unit_test_binarysearch_empty()
     a = Vector{Float64}(undef, 0)
     @test binarysearch(a, 0.0) === nothing
@@ -56,6 +60,7 @@ function unit_test_binarysearch_empty()
     
     return nothing
 end
+
 
 function unit_test_binarysearch_one()
     a = [10.0]
@@ -71,6 +76,7 @@ function unit_test_binarysearch_one()
     return nothing
 end
 
+
 function unit_test_binarysearch_many()
     # known example list
     a = [1.0, 3.0, 5.0, 6.0, 10.0, 10.0]
@@ -84,6 +90,7 @@ function unit_test_binarysearch_many()
     
     return nothing
 end
+
 
 function unit_test_binarysearch_string()
     # known example list
@@ -103,6 +110,7 @@ function unit_test_binarysearch_string()
     return nothing
 end
     
+
 # Run the unit tests
 @testset "Linear search " begin
     unit_test_linearsearch_empty()
