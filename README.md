@@ -2,7 +2,7 @@
 
 Implementation of some data structures and algorithms from the Chalmers courses DAT038 and TIN093 in Julia as en exercise and for fun. Many of the implementations are straight from instructions and invariants. Therefore, the code might not be the most efficient, general or clean. Not all algorithms are present. Some interfaces are also missing, but patched on a need-to-use basis.
 
-Work ongoing, currently at hash maps which are not fully working. Red-black and AVL trees and graphs (BFS, DFS, UCS, A*) left.
+Work ongoing, currently at hash maps which are not fully working. Red-black and AVL trees and graphs (BFS, DFS, UCS, A*) left, and then some more algorithms.
 
 ## Implemented data structures and algorithms and time complexities
 *Search:*

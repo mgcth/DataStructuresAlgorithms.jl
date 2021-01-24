@@ -5,12 +5,14 @@ Linked list abstract supertype.
 """
 abstract type LinkedList{T} end
 
+
 """
     LLNode
 
 Linked list node supertype.
 """
 abstract type LLNode{T} end
+
 
 """
     NValueType
@@ -19,8 +21,9 @@ Node value type.
 """
 NValueType = Union{T, Nothing} where T
 
+
 """
-    SLLNode
+SLLNode
 
 Singly linked list node. Holds pointer to next node and some value.
 """
@@ -31,6 +34,7 @@ mutable struct SLLNode{T} <: LLNode{T}
     SLLNode{T}(y::T) where T = (x = new(); x.next = x; x.value = y; x)
     SLLNode{T}(n::SLLNode{T}, y::T) where T = new(n, y)
 end
+
 
 """
     DLLNode
@@ -46,6 +50,7 @@ mutable struct DLLNode{T} <: LLNode{T}
     DLLNode{T}(p::DLLNode{T}, n::DLLNode{T}, y::T) where T = new(p, n, y)
 end
 
+
 """
     SLinkedList
 
@@ -58,6 +63,7 @@ mutable struct SLinkedList{T} <: LinkedList{T}
     #SLinkedList{T}() where T = (x = new(); x.size = 0; x)
     SLinkedList{T}() where T = (x = SLLNode{T}(); new(x, x, 0))
 end
+
 
 """
     DLinkedList
@@ -72,8 +78,9 @@ mutable struct DLinkedList{T} <: LinkedList{T}
     DLinkedList{T}() where T = (x = DLLNode{T}(); new(x, x, 0))
 end
 
+
 """
-    addlast!(l, x)
+    addlast!(l::SLinkedList{T}, x::T)
 
 Add node to last position in linked list. Time complexity O(1).
 """
@@ -86,6 +93,12 @@ function addlast!(l::SLinkedList{T}, x::T) where T
     return nothing
 end
 
+
+"""
+    addlast!(l::DLinkedList{T}, x::T)
+
+Add node to last position in linked list. Time complexity O(1).
+"""
 function addlast!(l::DLinkedList{T}, x::T) where T
     l.tail.next.value = x
     l.tail = l.tail.next
@@ -96,8 +109,9 @@ function addlast!(l::DLinkedList{T}, x::T) where T
     return nothing
 end
 
+
 """
-    addfirst!(l, x)
+    addfirst!(l::SLinkedList{T}, x::T)
 
 Add node to first position in linked list. Time complexity O(1).
 """
@@ -113,6 +127,12 @@ function addfirst!(l::SLinkedList{T}, x::T) where T
     return nothing
 end
 
+
+"""
+    addfirst!(l::DLinkedList{T}, x::T)
+
+Add node to first position in linked list. Time complexity O(1).
+"""
 function addfirst!(l::DLinkedList{T}, x::T) where T
     n = l.head
     l.head = DLLNode{T}(x)
@@ -126,12 +146,13 @@ function addfirst!(l::DLinkedList{T}, x::T) where T
     return nothing
 end
 
+
 """
-    add!(l, x, pos = 0)
+    add!(l::SLinkedList{T}, x::T, pos::Int)
 
 Add node to linked list at some position. Time complexity O(n).
 """
-function add!(l::SLinkedList, x::T, pos::Int = l.size) where T
+function add!(l::SLinkedList{T}, x::T, pos::Int) where T
     if pos <= 1
         addfirst!(l, x)
     elseif pos > l.size
@@ -151,7 +172,13 @@ function add!(l::SLinkedList, x::T, pos::Int = l.size) where T
     return nothing
 end
 
-function add!(l::DLinkedList, x::T, pos::Int = l.size) where T
+
+"""
+    add!(l::DLinkedList{T}, x::T, pos::Int)
+
+Add node to linked list at some position. Time complexity O(n).
+"""
+function add!(l::DLinkedList{T}, x::T, pos::Int) where T
     if pos <= 1
         addfirst!(l, x)
     elseif pos > l.size
@@ -172,12 +199,13 @@ function add!(l::DLinkedList, x::T, pos::Int = l.size) where T
     return nothing
 end
 
-"""
-    removelast!(l)
 
-Remove last node from linked list. Time complexity for singly linked list O(n) and for doubly linked list O(1).
 """
-function removelast!(l::SLinkedList{T}) where T
+    removelast!(l::SLinkedList)
+
+Remove last node from linked list. Time complexity O(n).
+"""
+function removelast!(l::SLinkedList)
     x = l.tail.value
     n = l.head
 
@@ -203,7 +231,13 @@ function removelast!(l::SLinkedList{T}) where T
     return x
 end
 
-function removelast!(l::DLinkedList{T}) where T
+
+"""
+    removelast!(l::DLinkedList)
+
+Remove last node from linked list. Time complexity O(1).
+"""
+function removelast!(l::DLinkedList)
     x = l.tail.value
     empty = l.tail.next
 
@@ -225,12 +259,13 @@ function removelast!(l::DLinkedList{T}) where T
     return x
 end
 
-"""
-    removefirst!(l)
 
-Remove last node from linked list. Time complexity O(1).
 """
-function removefirst!(l::SLinkedList{T}) where T
+    removefirst!(l::SLinkedList)
+
+Remove first node from linked list. Time complexity O(1).
+"""
+function removefirst!(l::SLinkedList)
     x = l.head.value
     l.head = l.head.next
     if l.size == 1
@@ -241,7 +276,13 @@ function removefirst!(l::SLinkedList{T}) where T
     return x
 end
 
-function removefirst!(l::DLinkedList{T}) where T
+
+"""
+    removefirst!(l::DLinkedList)
+
+Remove first node from linked list. Time complexity O(1).
+"""
+function removefirst!(l::DLinkedList)
     x = l.head.value
     l.head = l.head.next
     l.head.prev = l.head
@@ -253,12 +294,13 @@ function removefirst!(l::DLinkedList{T}) where T
     return x
 end
 
-"""
-    remove!(l)
 
-Remove last node from linked list. Time complexity O(n).
 """
-function remove!(l::SLinkedList{T}, pos::Int) where T
+    remove!(l::SLinkedList, pos::Int)
+
+Remove node from linked list. Time complexity O(n).
+"""
+function remove!(l::SLinkedList, pos::Int)
     x = 0
 
     if pos <= 1
@@ -282,7 +324,13 @@ function remove!(l::SLinkedList{T}, pos::Int) where T
     return x
 end
 
-function remove!(l::DLinkedList{T}, pos::Int) where T
+
+"""
+    remove!(l::DLinkedList, pos::Int)
+
+Remove node from linked list. Time complexity O(n).
+"""
+function remove!(l::DLinkedList, pos::Int)
     x = 0
 
     if pos <= 1
@@ -307,36 +355,65 @@ function remove!(l::DLinkedList{T}, pos::Int) where T
     return x
 end
 
+
 """
-    peekfirst(l)
+    add!(l::LinkedList{T}, x::T)
+
+Add node to last position in linked list. Time complexity O(1).
+"""
+add!(l::LinkedList{T}, x::T) where T = addlast!(l, x)
+
+
+"""
+    remove!(l::LinkedList)
+
+ Remove first node from linked list. Time complexity O(1).
+"""
+remove!(l::LinkedList) = removefirst!(l)
+
+
+"""
+    peekfirst(l::LinkedList)
 
 Lookup first element in list.
 """
 peekfirst(l::LinkedList) = l.head.value
 
+
 """
-    peeklast(l)
+    peeklast(l::LinkedList)
 
 Lookup last element in list.
 """
 peeklast(l::LinkedList) = l.tail.value
 
-# Below are some interfaces
+
 """
     length(l)
-    size(l)
 
 Get length of linked list.
 """
 length(l::LinkedList) = l.size
+
+
+"""
+    size(l)
+
+Get length of linked list.
+"""
 size(l::LinkedList) = length(l)
+
 
 """
     :(==)
 
-Test list equality.
+Test list equality. O(n)
 """
-(==)(x::LinkedList, y::LinkedList) = (x.head == y.head) && (x.tail == y.tail) && (x.size == y.size)
+function (==)(x::LinkedList, y::LinkedList)
+    collect(x) == collect(y)
+end
+# (==)(x::LinkedList, y::LinkedList) = (x.head == y.head) && (x.tail == y.tail) && (x.size == y.size) # this is not complete
+
 
 """
     show(l)
@@ -357,6 +434,7 @@ function show(io::IO, l::SLinkedList{T}) where T
     print(io, " Size:  $(l.size)")
 end
 
+
 function show(io::IO, l::DLinkedList{T}) where T
     println(io, "$(typeof(l))")
     print(io, " Head: ")
@@ -371,12 +449,14 @@ function show(io::IO, l::DLinkedList{T}) where T
     print(io, " Size:  $(l.size)")
 end
 
+
 """
     iterate(l, n)
 
 Iterate over a linked list.
 """
 iterate(l::LinkedList, n = l.head) = n == n.next ? nothing : (n.value, n.next)
+
 
 """
     eltype(type)
