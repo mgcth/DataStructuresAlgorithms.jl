@@ -1,7 +1,8 @@
 const INSERTION_VALUE = 60
 
+
 """
-    selectionsort!(a)
+    selectionsort!(a::AbstractVector{T})
 
 A selection sort algorithm. Time complexity O(n^2).
 """
@@ -21,8 +22,9 @@ function selectionsort!(a::AbstractVector{T}) where T <: Number
     return a
 end
 
+
 """
-    insertionsort!(a, lo = 2, hi = length(a))
+    insertionsort!(a::AbstractVector{T}, lo::Int = 2, hi::Int = length(a))
 
 Insertion sort with linear search. Time complexity O(n^2), best case O(n).
 Fast for small arrays.
@@ -41,8 +43,9 @@ function insertionsort!(a::AbstractVector{T}, lo::Int = 2, hi::Int = length(a)) 
     return a
 end
 
+
 """
-    mergesort(a)
+    mergesort(a::AbstractVector{T})
     
 Mergesort algorithm with insertion sort at lowest level. Time complexity O(n log n).
 """
@@ -50,8 +53,9 @@ function mergesort(a::AbstractVector{T}) where T
     return mergesort(a, 1, length(a))
 end
 
+
 """
-    mergesort(a, lo, hi)
+    mergesort(a::AbstractVector{T}, lo::Int, hi::Int)
 
 Recursive mergesort function. Something should be done about all the allocations.
 """
@@ -69,8 +73,9 @@ function mergesort(a::AbstractVector{T}, lo::Int, hi::Int) where T
     end
 end
 
+
 """
-    merge(a1, a2)
+    merge(a::AbstractVector{T}, a1::AbstractVector{T}, a2::AbstractVector{T})
 
 Merge two arrays.
 """
@@ -92,8 +97,9 @@ function merge!(a::AbstractVector{T}, a1::AbstractVector{T}, a2::AbstractVector{
     return nothing
 end
 
+
 """
-    swap(a, i, j)
+    swap(a::AbstractVector, i::Int, j::Int)
 
 Swap to element i and j in array a.
 """
@@ -104,13 +110,20 @@ function swap!(a::AbstractVector, i::Int, j::Int)
     return nothing
 end
 
+
 """
-    quicksort!()
+    quicksort!(a::AbstractVector)
 
 Basic quicksort algorithm. Time complexity O(nlogn), worst case with bad pivor O(n^2).
 """
 quicksort!(a::AbstractVector) = quicksort!(a, 1, length(a))
 
+
+"""
+    quicksort!(a::AbstractVector, lo::Int, hi::Int)
+
+Basic quicksort algorithm. Time complexity O(nlogn), worst case with bad pivor O(n^2).
+"""
 function quicksort!(a::AbstractVector, lo::Int, hi::Int)
     if lo >= hi return a end
 
@@ -123,7 +136,13 @@ function quicksort!(a::AbstractVector, lo::Int, hi::Int)
     end
 end
 
-function partition(a, lo, hi)
+
+"""
+    partition(a, lo::Int, hi::Int)
+
+Partition function for quicksort.
+"""
+function partition(a::AbstractVector, lo::Int, hi::Int)
     pivot = pivot_mo3(a, lo, hi) # median of three
     lo0 = lo
     lo += 1
@@ -148,12 +167,13 @@ function partition(a, lo, hi)
     return hi
 end
 
+
 """
-    pivot_mo3(a, lo, hi)
+    pivot_mo3(a::AbstractVector, lo::Int, hi::Int)
 
 Use median of three elements as pivot element, i.e. middle element of three.
 """
-function pivot_mo3(a, lo, hi)
+function pivot_mo3(a::AbstractVector, lo::Int, hi::Int)
     mid = lo + (hi - lo) ÷ 2
     if a[mid] < a[lo]
         swap!(a, lo, mid)

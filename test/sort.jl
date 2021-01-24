@@ -6,6 +6,7 @@ function unit_test_selectionsort_empty()
     return nothing
 end
 
+
 function unit_test_selectionsort_one()
     a = [10.0]
     @test selectionsort!(a) == a
@@ -16,6 +17,7 @@ function unit_test_selectionsort_one()
     return nothing
 end
 
+
 function unit_test_selectionsort_many()
     # known example list
     a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
@@ -24,6 +26,7 @@ function unit_test_selectionsort_many()
     
     return nothing
 end
+
 
 function unit_test_selectionsort_real()
     n = 10^3
@@ -35,6 +38,7 @@ function unit_test_selectionsort_real()
     return nothing
 end
 
+
 function unit_test_selectionsort_string()
     # known example list
     a = "A search has no name."
@@ -44,12 +48,14 @@ function unit_test_selectionsort_string()
     return nothing
 end
 
+
 function unit_test_insertionsort_empty()
     a = Vector{Float64}(undef, 0)
     @test insertionsort!(a) == a
     
     return nothing
 end
+
 
 function unit_test_insertionsort_one()
     a = [10.0]
@@ -61,6 +67,7 @@ function unit_test_insertionsort_one()
     return nothing
 end
 
+
 function unit_test_insertionsort_many()
     # known example list
     a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
@@ -69,6 +76,7 @@ function unit_test_insertionsort_many()
     
     return nothing
 end
+
 
 function unit_test_insertionsort_real()
     n = 10^3
@@ -80,6 +88,7 @@ function unit_test_insertionsort_real()
     return nothing
 end
 
+
 function unit_test_insertionsort_string()
     # known example list
     a = "A search has no name."
@@ -89,12 +98,14 @@ function unit_test_insertionsort_string()
     return nothing
 end
 
+
 function unit_test_mergesort_empty()
     a = Vector{Float64}(undef, 0)
     @test mergesort(a) == a
     
     return nothing
 end
+
 
 function unit_test_mergesort_one()
     a = [10.0]
@@ -106,6 +117,7 @@ function unit_test_mergesort_one()
     return nothing
 end
 
+
 function unit_test_mergesort_many()
     # known example list
     a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
@@ -114,6 +126,7 @@ function unit_test_mergesort_many()
     
     return nothing
 end
+
 
 function unit_test_mergesort_real()
     n = 10^4
@@ -125,6 +138,7 @@ function unit_test_mergesort_real()
     return nothing
 end
 
+
 function unit_test_mergesort_string()
     # known example list
     a = "A search has no name."
@@ -134,12 +148,14 @@ function unit_test_mergesort_string()
     return nothing
 end
 
+
 function unit_test_quicksort_empty()
     a = Vector{Float64}(undef, 0)
     @test quicksort!(a) == a
     
     return nothing
 end
+
 
 function unit_test_quicksort_one()
     a = [10.0]
@@ -151,6 +167,7 @@ function unit_test_quicksort_one()
     return nothing
 end
 
+
 function unit_test_quicksort_many()
     # known example list
     a = [10.0, 1.0, 10.0, 3.0, 5.0, 6.0]
@@ -159,6 +176,7 @@ function unit_test_quicksort_many()
     
     return nothing
 end
+
 
 function unit_test_quicksort_real()
     n = 10^4
@@ -170,6 +188,7 @@ function unit_test_quicksort_real()
     return nothing
 end
 
+
 function unit_test_quicksort_string()
     # known example list
     a = "A search has no name."
@@ -178,7 +197,8 @@ function unit_test_quicksort_string()
     
     return nothing
 end
-    
+
+
 # Run the unit tests
 @testset "Selection sort" begin
     unit_test_selectionsort_empty()
