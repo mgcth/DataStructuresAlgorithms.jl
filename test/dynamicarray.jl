@@ -73,6 +73,16 @@ function unit_test_dynamicarray_resize()
     
     return nothing
 end
+
+
+function unit_test_dynamicarray_out_of_bounds()
+    d = DynamicArray{Float64}()
+    val = 2.0
+    push!(d, val)
+    @test_throws BoundsError d[2]
+    
+    return nothing
+end
  
 
 # Run the unit tests
@@ -85,4 +95,5 @@ end
     unit_test_dynamicarray_getindex()
     unit_test_dynamicarray_setindex()
     unit_test_dynamicarray_resize()
+    unit_test_dynamicarray_out_of_bounds()
 end
